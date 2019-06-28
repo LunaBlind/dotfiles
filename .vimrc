@@ -1,10 +1,21 @@
 syntax on
 
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
+" nnoremap <up> <nop>
+" nnoremap <down> <nop>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
 nnoremap <F5> <esc> :w <cr> :!python % <cr>
+nnoremap <F6> <esc> :w <cr> :! docker build -t turtlebot_image . <cr>
+nnoremap <F7> <esc> :w <cr> :!./% <cr>
+nnoremap <F8> <esc> :w <cr> :!pandoc % -o test.pdf <cr> :!evince test.pdf <cr>
+
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 set smartcase
 set incsearch
@@ -15,6 +26,7 @@ set softtabstop=4
 set shiftwidth=4
 set autoindent
 set noswapfile
+set nu
 
 if exists('+colorcolumn')
   set colorcolumn=80
