@@ -1,0 +1,11 @@
+clear Lock
+! keycode  9 = 
+keycode  9 = Escape NoSymbol Escape
+keycode  66 = Escape NoSymbol Escape
+keycode 108 = Mode_switch NoSymbol Mode_switch
+keycode 135 = 
+
+keycode 38 = a A adiaeresis Adiaeresis
+keycode 30 = u U udiaeresis Udiaeresis
+keycode 32 = o O odiaeresis Odiaeresis
+keycode 39 = s S ssharp S
