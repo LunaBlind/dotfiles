@@ -5,10 +5,10 @@ syntax on
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-nnoremap <F5> <esc> :w <cr> :!python % <cr>
-nnoremap <F6> <esc> :w <cr> :! docker build -t turtlebot_image . <cr>
-nnoremap <F7> <esc> :w <cr> :!./% <cr>
-nnoremap <F8> <esc> :w <cr> :!pandoc % -o test.pdf <cr> :!evince test.pdf <cr>
+" nnoremap <F5> <esc> :w <cr> :!python % <cr>
+" nnoremap <F6> <esc> :w <cr> :! docker build -t turtlebot_image . <cr>
+" nnoremap <F7> <esc> :w <cr> :!./% <cr>
+" nnoremap <F8> <esc> :w <cr> :!pandoc % -o test.pdf <cr> :!evince test.pdf <cr>
 
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
@@ -27,6 +27,7 @@ set shiftwidth=4
 set autoindent
 set noswapfile
 set nu
+set encoding=utf-8
 
 if exists('+colorcolumn')
   set colorcolumn=80
@@ -36,6 +37,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
+Plug 'lervag/vimtex'
 Plug 'raimondi/delimitmate'
 Plug 'joom/vim-commentary'
 Plug 'Valloric/YouCompleteMe'
@@ -50,3 +52,5 @@ augroup line_return
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
+
+let g:vimtex_view_method = 'mupdf'
