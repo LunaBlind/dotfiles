@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/manynames/machine_learning/easter/TensorFlow-Examples/examples/1_Introduction'
+let g:netrw_dirhist_2='/home/manynames/.config/gtk-3.0'
+let g:netrw_dirhist_3='/home/manynames/.config/gtk-2.0'
+let g:netrw_dirhist_4='/home/manynames/.config/QtProject'
+let g:netrw_dirhist_5='/home/manynames/.fixes'
+let g:netrw_dirhist_6='/home/nika/uni/projektstudium/irrigation_project'
