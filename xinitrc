@@ -50,13 +50,17 @@ fi
 # exec xrandr --dpi 144 &
 exec $HOME/scripts/screens.sh &
 exec nitrogen --restore &
+exec xss-lock -- i3lock -c 000000 &
+exec --no-startup-id xmodmap .Xmodmap &
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent &
-exec --no-startup-id i3-battery-popup -n -L 5 &
+exec --no-startup-id i3-battery-popup -n -L 15 &
 # exec redshift -l 49:11 &
 exec redshift &
 # exec setxkbmap us &
 # exec setxkbmap -option caps:escape &
 # exec xmodmap ~/.Xmodmap &
-exec nm-applet &
+exec ~/scripts/wallpaper.sh &
+exec --no-startup-id nm-applet &
+exec signal-desktop —start-in-tray —use-tray-icon &
 exec i3
 

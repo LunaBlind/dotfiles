@@ -170,19 +170,31 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Screen Brightness
+bindcode 232 exec "xbacklight -dec 10"
+bindcode 233 exec "xbacklight -inc 10"
+
+# the usual
+bindsym $mod+p exec pcmanfm
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # bar {
 #         status_command i3status
 # }
 #
+#
+# i3 specific options
+popup_during_fullscreen leave_fullscreen
+workspace_auto_back_and_forth yes
+
 # borders
-default_border none
-default_border normal
+# default_border none
+# default_border normal
 default_border pixel 5
 hide_edge_borders smart
-new_float normal 1
-default_floating_border pixel 1
+# new_float normal 1
+# default_floating_border pixel 1
 default_floating_border normal
 
 set $blue = #007aac
@@ -221,9 +233,10 @@ bindsym $mod+ctrl+4 exec amixer set Capture toggle
 bindsym XF86AudioMicMute exec amixer set Capture toggle
 
 # keyboard-layout 
-bindsym End exec setxkbmap de && xmodmap ~/.Xmodmap
-bindsym Home exec setxkbmap us && xmodmap ~/.Xmodmap
+# bindsym End exec setxkbmap de && xmodmap ~/.Xmodmap
+# bindsym Home exec setxkbmap us && xmodmap ~/.Xmodmap
 
 # i3lock
-exec --no-startup-id xautolock -locker 'i3lock -d -c 000000'
+exec xss-lock -- i3lock -c 000000
+# exec --no-startup-id xautolock -locker 'i3lock -d -c 000000'
 # bindsym $mod+l exec --no-startup-id xautolock -locker 'i3lock -d -c 000000'

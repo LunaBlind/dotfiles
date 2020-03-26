@@ -8,7 +8,7 @@ cnoremap <C-n> <Down>
 " nnoremap <F5> <esc> :w <cr> :!python % <cr>
 " nnoremap <F6> <esc> :w <cr> :! docker build -t turtlebot_image . <cr>
 " nnoremap <F7> <esc> :w <cr> :!./% <cr>
-" nnoremap <F8> <esc> :w <cr> :!pandoc % -o test.pdf <cr> :!evince test.pdf <cr>
+nnoremap <F8> <esc> :w <cr> :!pandoc % -o test.pdf <cr> :!evince test.pdf <cr>
 
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
@@ -37,6 +37,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
+Plug 'brennier/quicktex'
 Plug 'lervag/vimtex'
 Plug 'raimondi/delimitmate'
 Plug 'joom/vim-commentary'
@@ -53,4 +54,7 @@ augroup line_return
         \ endif
 augroup END
 
-let g:vimtex_view_method = 'mupdf'
+" let g:vimtex_view_method = 'mupdf'
+" let g:vimtex_view_general_viewer = 'evince' 
+let g:vimtex_view_general_viewer = 'zathura' 
+let g:tex_flavor = 'latex'
