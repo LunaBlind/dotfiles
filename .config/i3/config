@@ -234,7 +234,7 @@ bindsym XF86AudioMicMute exec amixer set Capture toggle
 
 # keyboard-layout 
 # bindsym End exec setxkbmap de && xmodmap ~/.Xmodmap
-# bindsym Home exec setxkbmap us && xmodmap ~/.Xmodmap
+bindsym Home exec setxkbmap us && xmodmap ~/.Xmodmap
 
 # i3lock
 exec xss-lock -- i3lock -c 000000

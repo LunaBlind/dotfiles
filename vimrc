@@ -26,7 +26,7 @@ set softtabstop=4
 set shiftwidth=4
 set autoindent
 set noswapfile
-set nu
+set number
 set encoding=utf-8
 
 if exists('+colorcolumn')
@@ -36,6 +36,7 @@ else
 endif
 
 call plug#begin('~/.vim/plugged')
+Plug 'morhetz/gruvbox'
 Plug 'junegunn/vim-plug'
 Plug 'brennier/quicktex'
 Plug 'lervag/vimtex'
@@ -45,6 +46,26 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'w0rp/ale'
 call plug#end()
 filetype plugin on
+
+colorscheme gruvbox
+
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+  " let base16colorspace=256  " Access colors present in 256 colorspace
+  " Allow color schemes to do bright colors without forcing bold.
+  set t_Co=256
+  " colorscheme desert
+  " colorscheme Tomorrow-Night
+  let g:gruvbox_undercurl = 1
+  let g:gruvbox_termcolors = 256
+  let g:gruvbox_constrast_dark='soft'
+  let g:gruvbox_underline=1
+  " let g:gruvbox_color_column='red'
+  set background=dark
+endif
 
 augroup line_return
   au!

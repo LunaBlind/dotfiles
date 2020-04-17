@@ -8,15 +8,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
-
-
-
-
-
-
-
     xrdb -merge $sysresources
-
 fi
 
 if [ -f $sysmodmap ]; then
@@ -24,9 +16,8 @@ if [ -f $sysmodmap ]; then
 fi
 
 if [ -f "$userresources" ]; then
-
-    xrdb -merge "$userresources"
-
+    # xrdb -merge "$userresources"
+	xrdb -I$HOME ~/.Xresources
 fi
 
 if [ -f "$usermodmap" ]; then
@@ -51,8 +42,10 @@ fi
 exec $HOME/scripts/screens.sh &
 exec nitrogen --restore &
 exec xss-lock -- i3lock -c 000000 &
-exec --no-startup-id xmodmap .Xmodmap &
-exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent &
+# exec --no-startup-id xmodmap .Xmodmap &
+# exec  xmodmap .Xmodmap &
+# exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent &
+exec  /usr/lib/geoclue-2.0/demos/agent &
 exec --no-startup-id i3-battery-popup -n -L 15 &
 # exec redshift -l 49:11 &
 exec redshift &
@@ -60,7 +53,7 @@ exec redshift &
 # exec setxkbmap -option caps:escape &
 # exec xmodmap ~/.Xmodmap &
 exec ~/scripts/wallpaper.sh &
-exec --no-startup-id nm-applet &
+exec nm-applet &
 exec signal-desktop —start-in-tray —use-tray-icon &
 exec i3
 
