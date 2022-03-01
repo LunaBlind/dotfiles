@@ -91,6 +91,10 @@ if has('nvim')
 	nmap <silent> gr <Plug>(coc-references)
 	" there's way more, see `:help coc-key-mappings@en'
 	"
+	" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+	" delays and poor user experience.
+	set updatetime=300
+	"
 	"
 	" experimental
 	Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
@@ -110,7 +114,7 @@ if has('nvim')
 
 	Plug 'daeyun/vim-matlab', { 'do': ':UpdateRemotePlugins' }
 	
-	Plug 'mwouts/jupytext'
+	Plug 'mwouts/jupytext', {'branch': 'main'}
 	" Plug 'daeyun/vim-matlab'
 	"
 	" Plug 'benmills/vimux'
@@ -176,3 +180,6 @@ augroup END
 let g:vimtex_view_general_viewer = 'zathura' 
 let g:tex_flavor = 'latex'
 
+" Ocaml
+filetype indent on
+au BufRead,BufNewFile *.ml,*.mli compiler ocaml

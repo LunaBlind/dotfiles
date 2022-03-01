@@ -10,11 +10,14 @@ export VISUAL=vim
 [[ $- != *i* ]] && return
 
 alias b='echo -e "enter brightness:\n"; read val; xrandr  --output eDP-1 --brightness "${val}"'
+alias bm='echo -e "enter brightness:\n"; read val; xrandr  --output HDMI-1 --brightness "${val}"'
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+alias feh='feh --start-at'
 
 #git
 alias gs='git status '
@@ -29,11 +32,11 @@ alias gx='gitx --all'
 # # i3lock
 # alias i3lock='i3lock -c 000000'
 
-PS1='[\u@\h \W]\$ '
+# PS1='[\u@\h \W]\$ '
 
 # export TERM=xterm-256color
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+# BASE16_SHELL=$HOME/.config/base16-shell/
+# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # export WORKON_HOME=$HOME/.virtualenvs
 # export PROJECT_HOME=$HOME/Devel
