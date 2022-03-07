@@ -2,54 +2,25 @@
 # ~/.bashrc
 #
 
-export SUDO_EDITOR=vim
-export EDITOR=vim
-export VISUAL=vim
+export SUDO_EDITOR=nvim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias b='echo -e "enter brightness:\n"; read val; xrandr  --output eDP-1 --brightness "${val}"'
-alias bm='echo -e "enter brightness:\n"; read val; xrandr  --output HDMI-1 --brightness "${val}"'
-
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
-alias feh='feh --start-at'
-
-#git
-alias gs='git status '
-alias ga='git add '
-alias gb='git branch '
-alias gc='git commit'
-alias gd='git diff'
-alias go='git checkout '
-alias gk='gitk --all&'
-alias gx='gitx --all'
-
-# # i3lock
-# alias i3lock='i3lock -c 000000'
-
 # PS1='[\u@\h \W]\$ '
 
-# export TERM=xterm-256color
-# BASE16_SHELL=$HOME/.config/base16-shell/
-# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PROJECT_HOME=$HOME/Devel
-# export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 export PATH=$PATH:/home/nika/.local/bin
-# export EDITOR=vim
-# export SUDO_EDITOR=vim
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
 source /usr/bin/virtualenvwrapper.sh
 
-alias mount='udisksctl mount -b'
-alias umount='udisksctl unmount -b'
 set -o vi
 
 /usr/bin/setxkbmap -option "caps:escape"
