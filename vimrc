@@ -58,7 +58,7 @@ if has('nvim')
 	" Latex Plugins
 	" Plug 'brennier/quicktex'
 	Plug 'lervag/vimtex'
-	" Plug 'honza/vim-snippets'
+	Plug 'honza/vim-snippets'
 	" Plug 'sirver/ultisnips'
 
 	
@@ -70,8 +70,7 @@ if has('nvim')
 	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 	Plug 'raimondi/delimitmate'
-	 Plug 'joom/vim-commentary'
-	" Plug 'Valloric/YouCompleteMe'
+	Plug 'joom/vim-commentary'
 
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	" use <tab> for trigger completion and navigate to the next complete item
@@ -97,24 +96,31 @@ if has('nvim')
 	"
 	"
 	" experimental
-	Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
+	" Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
 
 	" Plug 'davidhalter/jedi-vim'
 	"
 	Plug 'w0rp/ale'
 	Plug 'tpope/vim-surround'
 
-	Plug 'kien/rainbow_parentheses.vim'
-
+	Plug 'luochen1990/rainbow'
+	let g:rainbow_active = 1
 	
+	Plug 'mwouts/jupytext', {'branch': 'main'}
 
+	" Debugging
+	Plug 'mfussenegger/nvim-dap'
+	Plug 'mfussenegger/nvim-dap-python'
+
+	" Lisp
+	Plug 'vlime/vlime', {'rtp': 'vim/'}
 	" Matlab
 	" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 	" let g:deoplete#enable_at_startup = 1
 
-	Plug 'daeyun/vim-matlab', { 'do': ':UpdateRemotePlugins' }
+	" Plug 'daeyun/vim-matlab', { 'do': ':UpdateRemotePlugins' }
+	Plug 'MortenStabenau/matlab-vim'
 	
-	Plug 'mwouts/jupytext', {'branch': 'main'}
 	" Plug 'daeyun/vim-matlab'
 	"
 	" Plug 'benmills/vimux'
@@ -175,8 +181,6 @@ augroup line_return
         \ endif
 augroup END
 
-" let g:vimtex_view_method = 'mupdf'
-" let g:vimtex_view_general_viewer = 'evince' 
 let g:vimtex_view_general_viewer = 'zathura' 
 let g:tex_flavor = 'latex'
 
