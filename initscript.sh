@@ -6,6 +6,7 @@ ln -s .dotfiles/xinitrc .xinitrc
 ln -s .dotfiles/vim .vim
 ln -s .dotfiles/vimrc .vimrc
 ln -s .dotfiles/screenrc .screenrc
+ln -s .dotfiles/tmux.conf .tmux.conf
 ln .dotfiles/.config/i3/config .config/i3/config
 ln .dotfiles/.config/i3/i3status.conf .config/i3/i3status.conf
 ln .dotfiles/coc-settings.json .config/coc/
