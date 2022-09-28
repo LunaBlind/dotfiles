@@ -20,11 +20,11 @@ if [ -f "$userresources" ]; then
 	xrdb -I$HOME ~/.Xresources
 fi
 
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
+# if [ -f "$usermodmap" ]; then
+#     xmodmap "$usermodmap"
+# fi
 
-[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+# [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
 # start some nice programs
 

@@ -1,0 +1,49 @@
+" full caps is stupid. I will not type it
+augroup SQL
+  autocmd!
+  au FileType sql iabbrev != <>
+  au FileType sql iabbrev from FROM
+  au FileType sql iabbrev in IN
+  au FileType sql iabbrev select SELECT
+  au FileType sql iabbrev create CREATE
+  au FileType sql iabbrev database DATABASE
+  au FileType sql iabbrev where WHERE
+  au FileType sql iabbrev distinct DISTINCT
+  au FileType sql iabbrev join JOIN
+  au FileType sql iabbrev inner INNER
+  au FileType sql iabbrev outer OUTER
+  au FileType sql iabbrev full FULL
+  au FileType sql iabbrev on ON
+  au FileType sql iabbrev using USING
+  au FileType sql iabbrev like LIKE
+  au FileType sql iabbrev distinct DISTINCT
+  au FileType sql iabbrev between BETWEEN
+  au FileType sql iabbrev is IS
+  au FileType sql iabbrev not NOT
+  au FileType sql iabbrev null NULL
+  au FileType sql iabbrev order ORDER
+  au FileType sql iabbrev by BY
+  au FileType sql iabbrev count COUNT
+  au FileType sql iabbrev max MAX
+  au FileType sql iabbrev min MIN
+  au FileType sql iabbrev avg AVG
+  au FileType sql iabbrev sum SUM
+  au FileType sql iabbrev == =
+  au FileType sql iabbrev start START
+  au FileType sql iabbrev transaction TRANSACTION
+  au FileType sql iabbrev commit COMMIT
+  au FileType sql iabbrev rollback ROLLBACK
+  au FileType sql iabbrev alter ALTER
+  au FileType sql iabbrev add ADD
+  au FileType sql iabbrev constraint CONSTRAINT
+  au FileType sql iabbrev key KEY
+  au FileType sql iabbrev references REFERENCES
+  au FileType sql iabbrev insert INSERT
+  au FileType sql iabbrev update UPDATE
+  au FileType sql iabbrev delete DELETE
+  au FileType sql iabbrev drop DROP
+  au FileType sql iabbrev union UNION
+  au FileType sql iabbrev intersect INTERSECT
+  au FileType sql iabbrev except EXCEPT
+  au FileType sql iabbrev all ALL
+augroup END 

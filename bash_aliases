@@ -37,9 +37,11 @@ alias nogaming='sudo cpupower frequency-set -g powersave &&
 				sudo sysctl kernel.unprivileged_userns_clone=0'
 
 # games
+alias ck3='steam -applaunch 1158310'
 alias eu4='steam -applaunch 236850'
 alias stellaris='steam -applaunch 281990'
 alias hoi='steam -applaunch 394360'
+alias imperator='steam -applaunch 859580'
 
 # headset
 alias headset='bluetoothctl power on &&
