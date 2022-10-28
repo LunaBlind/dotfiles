@@ -24,6 +24,46 @@ nnoremap <leader>sv :source $MYVIMRC<cr> " quickly source vimrc
 
 nnoremap <leader>w :w <cr>
 nnoremap <leader>q :q <cr>
+nnoremap <leader>h :noh <cr>
+
+" this from here to ... from https://idie.ru/posts/vim-modern-cpp/
+" Keep selected text selected when fixing indentation
+vnoremap < <gv
+vnoremap > >gv
+
+" Fix common typos
+:command! W w
+:command! Q q
+:command! E e
+
+" Tabs managemenent
+nnoremap <A-t> :tabnew<CR>
+inoremap <A-t> <C-O>:tabnew<CR>
+nnoremap <A-Tab> :tabnext<CR>
+inoremap <A-Tab> <C-O>:tabnext<CR>
+nnoremap <A-1>      1gt
+inoremap <A-1> <C-O>1gt
+nnoremap <A-2>      2gt
+inoremap <A-2> <C-O>2gt
+nnoremap <A-3>      3gt
+inoremap <A-3> <C-O>3gt
+nnoremap <A-4>      4gt
+inoremap <A-4> <C-O>4gt
+nnoremap <A-5>      5gt
+inoremap <A-5> <C-O>5gt
+nnoremap <A-6>      6gt
+inoremap <A-6> <C-O>6gt
+nnoremap <A-7>      7gt
+inoremap <A-7> <C-O>7gt
+nnoremap <A-8>      8gt
+inoremap <A-8> <C-O>8gt
+nnoremap <A-9>      9gt
+inoremap <A-9> <C-O>9gt
+
+" Find and Replace
+map <leader>rs :%s///g<left><left><left>
+map <leader>rl :s///g<left><left><left>
+" here is from https://idie.ru/posts/vim-modern-cpp/
 
 set smartcase
 set incsearch
@@ -42,11 +82,29 @@ set foldenable
 set foldmethod=indent
 set foldnestmax=2
 
+"this is from https://idie.ru/posts/vim-modern-cpp/
+set signcolumn=yes
+set wildignore+=*.o                         " Compiled object files
+set wildignore+=*.pyc                       " Python bytecode
+set wildignore+=*.aux,*.out,*.toc           " LaTeX output
+set wildignore+=*.jpg,*.jpeg,*.gif,*.png    " Binary images
+set wildignore+=.hg,.git,.svn               " VCS
+set wildignore+=*~                          " Backup files
+set wildignore+=*.pdf                       " pdfs
+
 if exists('+colorcolumn')
   set colorcolumn=80
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
+
+"this is from https://idie.ru/posts/vim-modern-cpp/
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/ 
+au BufWinEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+au BufWinLeave * call clearmatches()
 
 if has('nvim')
 
@@ -63,17 +121,34 @@ if has('nvim')
     Plug 'raimondi/delimitmate'
     Plug 'joom/vim-commentary'
 
-    " Latex Plugins
-    Plug 'lervag/vimtex'
-        let g:vimtex_view_general_viewer = 'zathura' 
-        let g:tex_flavor = 'latex'
-    Plug 'honza/vim-snippets'
-    " Plug 'sirver/ultisnips'
-
     Plug 'w0rp/ale'
     Plug 'tpope/vim-surround'
     Plug 'luochen1990/rainbow'
-    let g:rainbow_active = 1
+        let g:rainbow_active = 1
+
+    Plug 'ludovicchabant/vim-gutentags'
+        set tags=./tags;
+        let g:gutentags_ctags_exclude_wildignore = 1
+        let g:gutentags_ctags_exclude = [
+          \'node_modules', '_build', 'build', 'CMakeFiles', '.mypy_cache', 'venv',
+          \'*.md', '*.tex', '*.css', '*.html', '*.json', '*.xml', '*.xmls', '*.ui']
+
+    Plug 'liuchengxu/vista.vim'
+        nnoremap <silent> <A-6> :Vista!!<CR>
+
+    " Latex Plugins
+    Plug 'lervag/vimtex'
+        let g:tex_flavor = 'latex'
+        let g:vimtex_view_general_viewer = 'zathura' 
+        let g:vimtex_quickfix_mode=0
+        set conceallevel=1
+        let g:tex_conceal='abdmg'
+    Plug 'honza/vim-snippets'
+    Plug 'sirver/ultisnips'
+        let g:UltiSnipsExpandTrigger="<A-i>"
+        let g:UltiSnipsJumpForwardTrigger="<A-j>"
+        let g:UltiSnipsJumpBackwardTrigger="<A-k>"
+
     
     " Python
     Plug 'mwouts/jupytext', {'branch': 'main'}
@@ -81,6 +156,44 @@ if has('nvim')
     " Debugging
     Plug 'mfussenegger/nvim-dap'
     Plug 'mfussenegger/nvim-dap-python'
+
+    " C++
+    " most of this came from https://idie.ru/posts/vim-modern-cpp/
+    Plug 'derekwyatt/vim-fswitch'
+        au BufEnter *.h  let b:fswitchdst = "c,cpp,cc,m"
+        au BufEnter *.cc let b:fswitchdst = "h,hpp"
+
+        au BufEnter *.h let b:fswitchdst = 'c,cpp,m,cc' | let b:fswitchlocs = 'reg:|include.*|src/**|'
+
+        nnoremap <silent> <A-o> :FSHere<cr>
+        " Extra hotkeys to open header/source in the split
+        nnoremap <silent> <localleader>oh :FSSplitLeft<cr>
+        nnoremap <silent> <localleader>oj :FSSplitBelow<cr>
+        nnoremap <silent> <localleader>ok :FSSplitAbove<cr>
+        nnoremap <silent> <localleader>ol :FSSplitRight<cr>
+
+    Plug 'bfrg/vim-cpp-modern'
+
+    function! s:JbzClangFormat(first, last)
+      let l:winview = winsaveview()
+      execute a:first . "," . a:last . "!clang-format"
+      call winrestview(l:winview)
+    endfunction
+    command! -range=% JbzClangFormat call <sid>JbzClangFormat (<line1>, <line2>)
+
+    au FileType c,cpp nnoremap <buffer><leader>lf :<C-u>JbzClangFormat<CR>
+    au FileType c,cpp vnoremap <buffer><leader>lf :JbzClangFormat<CR>
+    
+    function! s:JbzCppMan()
+        let old_isk = &iskeyword
+        setl iskeyword+=:
+        let str = expand("<cword>")
+        let &l:iskeyword = old_isk
+        execute 'Man ' . str
+    endfunction
+    command! JbzCppMan :call s:JbzCppMan()
+
+    au FileType cpp nnoremap <buffer>K :JbzCppMan<CR>
 
     " Matlab
     Plug 'MortenStabenau/matlab-vim'
@@ -211,6 +324,9 @@ endif
 
 filetype plugin on
 
+let g:gruvbox_sign_column='bg0'
+let g:gruvbox_color_column='bg1'
+let g:gruvbox_number_column='bg0'
 colorscheme gruvbox
 
 " matchit is a plugin which is shipped with vim, but not activated.
