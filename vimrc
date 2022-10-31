@@ -26,6 +26,9 @@ nnoremap <leader>w :w <cr>
 nnoremap <leader>q :q <cr>
 nnoremap <leader>h :noh <cr>
 
+" Copy selection to clipboard
+vnoremap <C-C> :w !xclip -i -sel c<CR><CR>
+
 " this from here to ... from https://idie.ru/posts/vim-modern-cpp/
 " Keep selected text selected when fixing indentation
 vnoremap < <gv
@@ -80,9 +83,22 @@ set number
 set encoding=utf-8
 set foldenable
 set foldmethod=indent
-set foldnestmax=2
+" set foldmethod=syntax
+set foldnestmax=6
+" set fillchars=fold:\
 
 "this is from https://idie.ru/posts/vim-modern-cpp/
+
+" more permanent undo?
+set undofile
+set undodir=$HOME/.vim/undo
+set undolevels=1000
+set undoreload=10000
+
+" set showmatch                               " Show matching brackets when text indicator is over them
+set mat=1                                   " How many tenths of a second to blink when matching brackets
+set re=1                                    " Required for vista.vim: https://github.com/liuchengxu/vista.vim/issues/82
+" set clipboard=unnamedplus,unnamed
 set signcolumn=yes
 set wildignore+=*.o                         " Compiled object files
 set wildignore+=*.pyc                       " Python bytecode
@@ -91,6 +107,23 @@ set wildignore+=*.jpg,*.jpeg,*.gif,*.png    " Binary images
 set wildignore+=.hg,.git,.svn               " VCS
 set wildignore+=*~                          " Backup files
 set wildignore+=*.pdf                       " pdfs
+
+" Editing neighbors
+" cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ew :e %%
+map <leader>ee :e 
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
+map <leader>ec :cd %%<cr>
+map <leader>eC :cd ..<cr>
+
+" Tmux https://github.com/jubnzv/dotfiles/blob/dd46c2d940c13a0db8d94b02934659018358579a/.config/nvim/init.vim#L208-L212
+if exists('$TMUX')
+  " Execute previous command in the last active pane
+  nnoremap <silent> <leader><tab> :silent !tmux send-keys -t \! Up Enter<cr>
+  nnoremap <silent> <leader><leader><tab> :silent !tmux clear-history -t right && tmux send-keys -t \! C-l Up Enter<cr>
+endif
 
 if exists('+colorcolumn')
   set colorcolumn=80
@@ -135,6 +168,41 @@ if has('nvim')
 
     Plug 'liuchengxu/vista.vim'
         nnoremap <silent> <A-6> :Vista!!<CR>
+
+    Plug 'itchyny/vim-gitbranch'
+    Plug 'itchyny/lightline.vim'
+      " {{{ Lightline
+        set noshowmode
+        let g:buftabline_indicators=1 " show modified
+
+        let g:lightline = {
+          \ 'colorscheme': 'gruvbox',
+          \ 'active': {
+          \   'left':  [ [ 'mode', 'paste' ],
+          \              [ 'readonly', 'filename', 'modified' ],
+          \              [ 'current_function'] ],
+          \   'right': [ [ 'lineinfo' ],
+          \              [ 'percent' ],
+          \              [ 'fileformat', 'fileencoding', 'filetype' ],
+          \              [ 'gitbranch' ] ],
+          \ },
+          \ 'component': {
+          \   'gitbranch': '%{gitbranch#name()}'
+          \ },
+          \ 'component_expand': {
+          \   'lsp_warnings': 'LightlineLspWarnings',
+          \   'lsp_errors': 'LightlineLspErrors',
+          \ },
+          \ 'component_function': {
+          \   'current_function': 'LightlineCurrentFunctionVista',
+          \   'filename': 'LightlineStrippedFilename'
+          \ },
+          \ 'component_type': {
+          \   'lsp_warnings': 'warning',
+          \   'lsp_errors': 'error',
+          \   'readonly': 'error',
+          \ },
+          \ }
 
     " Latex Plugins
     Plug 'lervag/vimtex'
