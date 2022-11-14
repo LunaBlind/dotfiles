@@ -7,11 +7,6 @@ syntax on
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-" nnoremap <F5> <esc> :w <cr> :!python % <cr>
-" nnoremap <F6> <esc> :w <cr> :! docker build -t turtlebot_image . <cr>
-" nnoremap <F7> <esc> :w <cr> :!./% <cr>
-" nnoremap <F8> <esc> :w <cr> :!pandoc % -o test.pdf <cr> :!evince test.pdf <cr>
-
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
@@ -72,7 +67,7 @@ set smartcase
 set incsearch
 set hlsearch
 set shortmess+=c
-set tabstop=8
+set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -99,7 +94,7 @@ set undoreload=10000
 set mat=1                                   " How many tenths of a second to blink when matching brackets
 set re=1                                    " Required for vista.vim: https://github.com/liuchengxu/vista.vim/issues/82
 " set clipboard=unnamedplus,unnamed
-set signcolumn=yes
+" set signcolumn=yes
 set wildignore+=*.o                         " Compiled object files
 set wildignore+=*.pyc                       " Python bytecode
 set wildignore+=*.aux,*.out,*.toc           " LaTeX output
@@ -152,10 +147,13 @@ if has('nvim')
     Plug 'junegunn/vim-plug'
     Plug 'morhetz/gruvbox'
     Plug 'raimondi/delimitmate'
-    Plug 'joom/vim-commentary'
+    " Plug 'joom/vim-commentary'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-obsession'
 
     Plug 'w0rp/ale'
-    Plug 'tpope/vim-surround'
     Plug 'luochen1990/rainbow'
         let g:rainbow_active = 1
 
@@ -174,17 +172,21 @@ if has('nvim')
       " {{{ Lightline
         set noshowmode
         let g:buftabline_indicators=1 " show modified
+        " \              [ 'gitbranch' ] ],
+          " \ 'component_function': {
+          " \   'current_function': 'LightlineCurrentFunctionVista',
+          " \   'filename': 'LightlineStrippedFilename'
+          " \ },
 
         let g:lightline = {
           \ 'colorscheme': 'gruvbox',
           \ 'active': {
           \   'left':  [ [ 'mode', 'paste' ],
-          \              [ 'readonly', 'filename', 'modified' ],
+          \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
           \              [ 'current_function'] ],
           \   'right': [ [ 'lineinfo' ],
           \              [ 'percent' ],
-          \              [ 'fileformat', 'fileencoding', 'filetype' ],
-          \              [ 'gitbranch' ] ],
+          \              [ 'fileformat', 'fileencoding', 'filetype' ]],
           \ },
           \ 'component': {
           \   'gitbranch': '%{gitbranch#name()}'
@@ -192,10 +194,6 @@ if has('nvim')
           \ 'component_expand': {
           \   'lsp_warnings': 'LightlineLspWarnings',
           \   'lsp_errors': 'LightlineLspErrors',
-          \ },
-          \ 'component_function': {
-          \   'current_function': 'LightlineCurrentFunctionVista',
-          \   'filename': 'LightlineStrippedFilename'
           \ },
           \ 'component_type': {
           \   'lsp_warnings': 'warning',
@@ -213,11 +211,10 @@ if has('nvim')
         let g:tex_conceal='abdmg'
     Plug 'honza/vim-snippets'
     Plug 'sirver/ultisnips'
-        let g:UltiSnipsExpandTrigger="<A-i>"
-        let g:UltiSnipsJumpForwardTrigger="<A-j>"
-        let g:UltiSnipsJumpBackwardTrigger="<A-k>"
+      let g:UltiSnipsExpandTrigger="<A-i>"
+      let g:UltiSnipsJumpForwardTrigger="<A-j>"
+      let g:UltiSnipsJumpBackwardTrigger="<A-k>"
 
-    
     " Python
     Plug 'mwouts/jupytext', {'branch': 'main'}
 
@@ -252,16 +249,16 @@ if has('nvim')
     au FileType c,cpp nnoremap <buffer><leader>lf :<C-u>JbzClangFormat<CR>
     au FileType c,cpp vnoremap <buffer><leader>lf :JbzClangFormat<CR>
     
-    function! s:JbzCppMan()
-        let old_isk = &iskeyword
-        setl iskeyword+=:
-        let str = expand("<cword>")
-        let &l:iskeyword = old_isk
-        execute 'Man ' . str
-    endfunction
-    command! JbzCppMan :call s:JbzCppMan()
+    " function! s:JbzCppMan()
+    "     let old_isk = &iskeyword
+    "     setl iskeyword+=:
+    "     let str = expand("<cword>")
+    "     let &l:iskeyword = old_isk
+    "     execute 'Man ' . str
+    " endfunction
+    " command! JbzCppMan :call s:JbzCppMan()
 
-    au FileType cpp nnoremap <buffer>K :JbzCppMan<CR>
+    " au FileType cpp nnoremap <buffer>K :JbzCppMan<CR>
 
     " Matlab
     Plug 'MortenStabenau/matlab-vim'
@@ -285,19 +282,22 @@ if has('nvim')
         endif
 
         " Give more space for displaying messages.
-        set cmdheight=2
+        set cmdheight=3
 
-        " use <tab> for trigger completion and navigate to the next complete item
-        function! s:check_back_space() abort
+        " Press Tab and Shift+Tab and navigate around completion selections
+        function! CheckBackspace() abort
           let col = col('.') - 1
-          return !col || getline('.')[col - 1]  =~ '\s'
+          return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
 
         inoremap <silent><expr> <Tab>
-                  \ pumvisible() ? "\<C-n>" :
-                  \ <SID>check_back_space() ? "\<Tab>" :
-                  \ coc#refresh()
-        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+          \ pumvisible() ? "\<C-n>" :
+          \ CheckBackspace() ? "\<Tab>" :
+          \ coc#refresh()
+        inoremap <silent><expr> <S-Tab>
+          \ pumvisible() ? "\<C-p>" :
+          \ CheckBackspace() ? "\<S-Tab>" :
+          \ coc#refresh()
 
         " Confirm completion with Enter. If nothing is selected use the first item.
         inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -307,11 +307,11 @@ if has('nvim')
         nnoremap <silent> K :call <SID>show_documentation()<CR>
 
         function! s:show_documentation()
-                        if (index(['vim','help'], &filetype) >= 0)
-                                        execute 'h '.expand('<cword>')
-                        else
-                                        call CocAction('doHover')
-                        endif
+            if (index(['vim','help'], &filetype) >= 0)
+                execute 'h '.expand('<cword>')
+            else
+                call CocAction('doHover')
+            endif
         endfunction
 
     " GoTo code navigation.
@@ -320,14 +320,24 @@ if has('nvim')
         nmap <silent> gi <Plug>(coc-implementation)
         nmap <silent> gr <Plug>(coc-references)
 
+        " Symbol renaming.
+        nmap <leader>rn <Plug>(coc-rename)
+
+        " Formatting selected code.
+        xmap <leader>f  <Plug>(coc-format-selected)
+        nmap <leader>f  <Plug>(coc-format-selected)
+
+        " " Apply AutoFix to problem on the current line.
+        " nmap <leader>qf  <Plug>(coc-fix-current)
+
         " Remap <C-f> and <C-b> for scroll float windows/popups.
         if has('nvim-0.4.0') || has('patch-8.2.0750')
-                nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-                nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-                inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-                inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-                vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-                vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+          nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+          nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+          inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+          inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+          vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+          vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
         endif
 
         " Map function and class text objects
@@ -343,23 +353,23 @@ if has('nvim')
     
 
     " Coc-Snippets
-            " Use <C-l> for trigger snippet expand.
-            imap <C-l> <Plug>(coc-snippets-expand)
+        " Use <C-l> for trigger snippet expand.
+        imap <c-l> <Plug>(coc-snippets-expand)
 
-            " Use <C-j> for select text for visual placeholder of snippet.
-            vmap <C-j> <Plug>(coc-snippets-select)
+        " Use <C-j> for select text for visual placeholder of snippet.
+        vmap <c-j> <Plug>(coc-snippets-select)
 
-            " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-            let g:coc_snippet_next = '<c-j>'
+        " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+        let g:coc_snippet_next = '<c-j>'
 
-            " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-            let g:coc_snippet_prev = '<c-k>'
+        " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+        let g:coc_snippet_prev = '<c-k>'
 
-            " Use <C-j> for both expand and jump (make expand higher priority.)
-            imap <C-j> <Plug>(coc-snippets-expand-jump)
+        " Use <C-j> for both expand and jump (make expand higher priority.)
+        imap <c-j> <Plug>(coc-snippets-expand-jump)
 
-            " Use <leader>x for convert visual selected code to snippet
-            xmap <leader>x  <Plug>(coc-convert-snippet)
+        " Use <leader>x for convert visual selected code to snippet
+        xmap <leader>x  <Plug>(coc-convert-snippet)
     "
     "
     " experimental
