@@ -30,11 +30,57 @@
     "__pycache__",
     "venv"
   ],
-  "python.pythonPath": "python",
-  "python.jediEnabled": true,
-  "python.venvPath": "/home/nika/.virtualenvs",
-  "python.linting.pylintEnabled": true,
-  "python.linting.pylintPath": "/bin/pylint",
-  "python.linting.flake8Enabled": false,
-  "python.autoUpdateLanguageServer": true
+  "diagnostic-languageserver.filetypes": {
+  "python": "pylint"
+    },
+ "diagnostic-languageserver.linters": {
+  "pylint": {
+    "sourceName": "pylint",
+    "command": "pylint",
+    "debounce": 100,
+    "args": [
+      "--output-format",
+      "text",
+      "--score",
+      "no",
+      "--msg-template",
+      "'{line}:{column}:{category}:{msg} ({msg_id}:{symbol})'",
+      "%file"
+    ],
+    "formatPattern": [
+      "^(\\d+?):(\\d+?):([a-z]+?):(.*)$",
+      {
+        "line": 1,
+        "column": 2,
+        "endColumn": 2,
+        "security": 3,
+        "message": 4
+      }
+    ],
+    "rootPatterns": ["pyproject.toml", "setup.py", ".git"],
+    "securities": {
+      "informational": "hint",
+      "refactor": "info",
+      "convention": "info",
+      "warning": "warning",
+      "error": "error",
+      "fatal": "error"
+    },
+    "offsetColumn": 1,
+    "offsetColumnEnd": 1,
+    "formatLines": 1
+  },
+  "python": {
+      "pythonPath": "python",
+      "jediEnabled" : true,
+      "venvPath": "/home/nika/.virtualenvs",
+      "analysis.logLevel": "Trace",
+      "analysis.typeCheckingMode": "off",
+      "analysis.useLibraryCodeForTypes": true,
+      "linting.pylintEnabled": true,
+      "linting.pylintPath": "/bin/pylint",
+      "linting.pycodestyleEnabled": false,
+      "autoUpdateLanguageServer" : true,
+       }
+    }
 }
