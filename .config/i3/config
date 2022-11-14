@@ -229,12 +229,16 @@ bar {
 # }
 
 # audiokeys
-bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
-bindsym $mod+ctrl+3 exec amixer set Master 5%+
-bindsym XF86AudioLowerVolume exec amixer set Master 5%-
-bindsym $mod+ctrl+2 exec amixer set Master 5%-
-bindsym XF86AudioMute exec amixer set Master toggle
-bindsym $mod+ctrl+1 exec amixer set Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
+bindsym $mod+ctrl+3 exec --no-startup-id amixer set Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+bindsym $mod+ctrl+2 exec --no-startup-id amixer set Master 5%-
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+bindsym $mod+ctrl+1 exec --no-startup-id amixer set Master toggle
+
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioNext exec --no-startup-id playerctl next
 #
 # microfone
 bindsym $mod+ctrl+4 exec amixer set Capture toggle
@@ -247,8 +251,17 @@ bindsym Home exec setxkbmap us && xmodmap ~/.Xmodmap
 # Screenshot
 bindcode --release 107 exec import /tmp/screenshot.png
 
+# # dunst control
+# bindsym $mod+d         exec --no-startup-id dunstctl close
+# bindsym $mod+Control+d exec --no-startup-id dunstctl closeall
+# bindsym $mod+Shift+D   exec --no-startup-id dunstctl history-pop
+
 # i3lock
 bindsym $mod+o exec i3lock -c 000000
+
+# Bind windows to workspaces
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
 
 # Autostart
 exec --no-startup-id ~/.scripts/screens.sh
@@ -263,3 +276,5 @@ exec --no-startup-id redshift
 exec --no-startup-id xmodmap ~/.Xmodmap
 # exec --no-startup-id headset
 exec --no-startup-id nm-applet
+
+# vim:foldmethod=marker:foldlevel=0:tw=120:
