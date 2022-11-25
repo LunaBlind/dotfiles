@@ -4,6 +4,9 @@ if &compatible
     set nocompatible "do not act like vi
 endif
 
+:lua vim.g.mapleader = ' '
+" :lua vim.g.maplocalleader = ','
+
 syntax on
 
 cnoremap <C-p> <Up>
@@ -14,8 +17,8 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
-nnoremap <leader>c :bprevious<CR>:bdelete #<CR>
-nnoremap <leader>d :bdelete %<CR>
+nnoremap <leader>cl :bprevious<CR>:bdelete #<CR>
+nnoremap <leader>de :bdelete %<CR>
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
@@ -71,8 +74,8 @@ nnoremap <A-9>      9gt
 inoremap <A-9> <C-O>9gt
 
 " Find and Replace
-map <leader>rs :%s///g<left><left><left>
-map <leader>rl :s///g<left><left><left>
+" map <leader>rs :%s///g<left><left><left>
+" map <leader>rl :s///g<left><left><left>
 " here is from https://idie.ru/posts/vim-modern-cpp/
 
 " Editing neighbors
@@ -110,6 +113,7 @@ set foldmethod=indent
 " set foldmethod=syntax
 set foldnestmax=6
 " set fillchars=fold:\
+" set updatetime=300
 
 "this is from https://idie.ru/posts/vim-modern-cpp/
 
