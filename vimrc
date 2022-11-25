@@ -7,10 +7,13 @@ syntax on
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
+" Buffer management
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
+nnoremap <leader>c :bprevious<CR>:bdelete #<CR>
+nnoremap <leader>d :bdelete %<CR>
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
@@ -35,10 +38,16 @@ vnoremap > >gv
 :command! E e
 
 " Tabs managemenent
+nnoremap <A-H> :-tabmove<CR>
+inoremap <A-H> <C-O>:-tabmove<CR>
+nnoremap <A-L> :+tabmove<CR>
+inoremap <A-L> <C-O>:+tabmove<CR>
 nnoremap <A-t> :tabnew<CR>
 inoremap <A-t> <C-O>:tabnew<CR>
-nnoremap <A-Tab> :tabnext<CR>
-inoremap <A-Tab> <C-O>:tabnext<CR>
+nnoremap <A-l> :tabnext<CR>
+inoremap <A-l> <C-O>:tabnext<CR>
+nnoremap <A-h> :tabprevious<CR>
+inoremap <A-h> <C-O>:tabprevious<CR>
 nnoremap <A-1>      1gt
 inoremap <A-1> <C-O>1gt
 nnoremap <A-2>      2gt
@@ -134,255 +143,6 @@ au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 au BufWinLeave * call clearmatches()
 
-if has('nvim')
-
-    tnoremap <Esc> <C-\><C-n>
-
-    " set runtimepath^=~/.vim runtimepath+=~/.vim/after
-    " set &packpath = &runtimepath
-    " source stdpath('config') . '/init.vim'
-
-    call plug#begin(stdpath('data') . '/plugged')
-    " call plug#begin('~/.config/nvim/plugged')
-    Plug 'junegunn/vim-plug'
-    Plug 'morhetz/gruvbox'
-    Plug 'raimondi/delimitmate'
-    " Plug 'joom/vim-commentary'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-obsession'
-
-    Plug 'w0rp/ale'
-    Plug 'luochen1990/rainbow'
-        let g:rainbow_active = 1
-
-    Plug 'ludovicchabant/vim-gutentags'
-        set tags=./tags;
-        let g:gutentags_ctags_exclude_wildignore = 1
-        let g:gutentags_ctags_exclude = [
-          \'node_modules', '_build', 'build', 'CMakeFiles', '.mypy_cache', 'venv',
-          \'*.md', '*.tex', '*.css', '*.html', '*.json', '*.xml', '*.xmls', '*.ui']
-
-    Plug 'liuchengxu/vista.vim'
-        nnoremap <silent> <A-6> :Vista!!<CR>
-
-    Plug 'itchyny/vim-gitbranch'
-    Plug 'itchyny/lightline.vim'
-      " {{{ Lightline
-        set noshowmode
-        let g:buftabline_indicators=1 " show modified
-        " \              [ 'gitbranch' ] ],
-          " \ 'component_function': {
-          " \   'current_function': 'LightlineCurrentFunctionVista',
-          " \   'filename': 'LightlineStrippedFilename'
-          " \ },
-
-        let g:lightline = {
-          \ 'colorscheme': 'gruvbox',
-          \ 'active': {
-          \   'left':  [ [ 'mode', 'paste' ],
-          \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
-          \              [ 'current_function'] ],
-          \   'right': [ [ 'lineinfo' ],
-          \              [ 'percent' ],
-          \              [ 'fileformat', 'fileencoding', 'filetype' ]],
-          \ },
-          \ 'component': {
-          \   'gitbranch': '%{gitbranch#name()}'
-          \ },
-          \ 'component_expand': {
-          \   'lsp_warnings': 'LightlineLspWarnings',
-          \   'lsp_errors': 'LightlineLspErrors',
-          \ },
-          \ 'component_type': {
-          \   'lsp_warnings': 'warning',
-          \   'lsp_errors': 'error',
-          \   'readonly': 'error',
-          \ },
-          \ }
-
-    " Latex Plugins
-    Plug 'lervag/vimtex'
-        let g:tex_flavor = 'latex'
-        let g:vimtex_view_general_viewer = 'zathura' 
-        let g:vimtex_quickfix_mode=0
-        set conceallevel=1
-        let g:tex_conceal='abdmg'
-    Plug 'honza/vim-snippets'
-    Plug 'sirver/ultisnips'
-      let g:UltiSnipsExpandTrigger="<A-i>"
-      let g:UltiSnipsJumpForwardTrigger="<A-j>"
-      let g:UltiSnipsJumpBackwardTrigger="<A-k>"
-
-    " Python
-    Plug 'mwouts/jupytext', {'branch': 'main'}
-
-    " Debugging
-    Plug 'mfussenegger/nvim-dap'
-    Plug 'mfussenegger/nvim-dap-python'
-
-    " C++
-    " most of this came from https://idie.ru/posts/vim-modern-cpp/
-    Plug 'derekwyatt/vim-fswitch'
-        au BufEnter *.h  let b:fswitchdst = "c,cpp,cc,m"
-        au BufEnter *.cc let b:fswitchdst = "h,hpp"
-
-        au BufEnter *.h let b:fswitchdst = 'c,cpp,m,cc' | let b:fswitchlocs = 'reg:|include.*|src/**|'
-
-        nnoremap <silent> <A-o> :FSHere<cr>
-        " Extra hotkeys to open header/source in the split
-        nnoremap <silent> <localleader>oh :FSSplitLeft<cr>
-        nnoremap <silent> <localleader>oj :FSSplitBelow<cr>
-        nnoremap <silent> <localleader>ok :FSSplitAbove<cr>
-        nnoremap <silent> <localleader>ol :FSSplitRight<cr>
-
-    Plug 'bfrg/vim-cpp-modern'
-
-    function! s:JbzClangFormat(first, last)
-      let l:winview = winsaveview()
-      execute a:first . "," . a:last . "!clang-format"
-      call winrestview(l:winview)
-    endfunction
-    command! -range=% JbzClangFormat call <sid>JbzClangFormat (<line1>, <line2>)
-
-    au FileType c,cpp nnoremap <buffer><leader>lf :<C-u>JbzClangFormat<CR>
-    au FileType c,cpp vnoremap <buffer><leader>lf :JbzClangFormat<CR>
-    
-    " function! s:JbzCppMan()
-    "     let old_isk = &iskeyword
-    "     setl iskeyword+=:
-    "     let str = expand("<cword>")
-    "     let &l:iskeyword = old_isk
-    "     execute 'Man ' . str
-    " endfunction
-    " command! JbzCppMan :call s:JbzCppMan()
-
-    " au FileType cpp nnoremap <buffer>K :JbzCppMan<CR>
-
-    " Matlab
-    Plug 'MortenStabenau/matlab-vim'
-    
-    " Autocompletion
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-        " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-        " delays and poor user experience.
-        set updatetime=300
-
-        " " don't give |ins-completion-menu| messages.
-        " set shortmess+=c
-
-        " Always show the signcolumn, otherwise it would shift the text each time
-        " diagnostics appear/become resolved.
-        if has("nvim-0.5.0") || has("patch-8.1.1564")
-                " Recently vim can merge signcolumn and number column into one
-                set signcolumn=number
-        else
-                set signcolumn=yes
-        endif
-
-        " Give more space for displaying messages.
-        set cmdheight=3
-
-        " Press Tab and Shift+Tab and navigate around completion selections
-        function! CheckBackspace() abort
-          let col = col('.') - 1
-          return !col || getline('.')[col - 1]  =~# '\s'
-        endfunction
-
-        inoremap <silent><expr> <Tab>
-          \ pumvisible() ? "\<C-n>" :
-          \ CheckBackspace() ? "\<Tab>" :
-          \ coc#refresh()
-        inoremap <silent><expr> <S-Tab>
-          \ pumvisible() ? "\<C-p>" :
-          \ CheckBackspace() ? "\<S-Tab>" :
-          \ coc#refresh()
-
-        " Confirm completion with Enter. If nothing is selected use the first item.
-        inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-        inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-
-        " Use K to show documentation in preview window
-        nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-        function! s:show_documentation()
-            if (index(['vim','help'], &filetype) >= 0)
-                execute 'h '.expand('<cword>')
-            else
-                call CocAction('doHover')
-            endif
-        endfunction
-
-    " GoTo code navigation.
-        nmap <silent> gd <Plug>(coc-definition)
-        nmap <silent> gy <Plug>(coc-type-definition)
-        nmap <silent> gi <Plug>(coc-implementation)
-        nmap <silent> gr <Plug>(coc-references)
-
-        " Symbol renaming.
-        nmap <leader>rn <Plug>(coc-rename)
-
-        " Formatting selected code.
-        xmap <leader>f  <Plug>(coc-format-selected)
-        nmap <leader>f  <Plug>(coc-format-selected)
-
-        " " Apply AutoFix to problem on the current line.
-        " nmap <leader>qf  <Plug>(coc-fix-current)
-
-        " Remap <C-f> and <C-b> for scroll float windows/popups.
-        if has('nvim-0.4.0') || has('patch-8.2.0750')
-          nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-          nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-          inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-          inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-          vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-          vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-        endif
-
-        " Map function and class text objects
-        " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-        xmap if <Plug>(coc-funcobj-i)
-        omap if <Plug>(coc-funcobj-i)
-        xmap af <Plug>(coc-funcobj-a)
-        omap af <Plug>(coc-funcobj-a)
-        xmap ic <Plug>(coc-classobj-i)
-        omap ic <Plug>(coc-classobj-i)
-        xmap ac <Plug>(coc-classobj-a)
-        omap ac <Plug>(coc-classobj-a)
-    
-
-    " Coc-Snippets
-        " Use <C-l> for trigger snippet expand.
-        imap <c-l> <Plug>(coc-snippets-expand)
-
-        " Use <C-j> for select text for visual placeholder of snippet.
-        vmap <c-j> <Plug>(coc-snippets-select)
-
-        " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-        let g:coc_snippet_next = '<c-j>'
-
-        " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-        let g:coc_snippet_prev = '<c-k>'
-
-        " Use <C-j> for both expand and jump (make expand higher priority.)
-        imap <c-j> <Plug>(coc-snippets-expand-jump)
-
-        " Use <leader>x for convert visual selected code to snippet
-        xmap <leader>x  <Plug>(coc-convert-snippet)
-    "
-    "
-    " experimental
-        Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
-
-    " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-
-    " Plug 'davidhalter/jedi-vim'
-    "
-    call plug#end()
-
-else
-
 	call plug#begin('~/.vim/plugged')
 	Plug 'morhetz/gruvbox'
 	Plug 'junegunn/vim-plug'
@@ -397,8 +157,6 @@ else
 	Plug 'kien/rainbow_parentheses.vim'
 
 call plug#end()
-
-endif
 
 filetype plugin on
 
