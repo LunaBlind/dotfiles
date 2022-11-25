@@ -52,6 +52,7 @@ vim.opt.shortmess:append "c"
 vim.opt.completeopt={"menu", "menuone", "noselect"}
 -- Set up nvim-cmp.
 local cmp = require'cmp'
+local luasnip = require('luasnip')
 
 cmp.setup {
     snippet = {
@@ -85,13 +86,14 @@ cmp.setup {
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping(
-          cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-          },
-          { "i", "c" }
-        ),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        -- ["<CR>"] = cmp.mapping(
+        --   cmp.mapping.confirm {
+        --     behavior = cmp.ConfirmBehavior.Insert,
+        --     select = true,
+        --   },
+        --   { "i", "c" }
+        -- ),
 
         ["<c-space>"] = cmp.mapping {
           i = cmp.mapping.complete(),
