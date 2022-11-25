@@ -334,6 +334,7 @@ lua <<EOF
 vim.opt.shortmess:append "c"
 vim.opt.completeopt={"menu", "menuone", "noselect"}
 vim.g.snippets = "luasnip"
+require'plugins.telescope'
 require'lsp_setup'
 require'plugins.nvim-treesitter.config'
 -- require'plugins.lspconfig'
@@ -349,7 +350,6 @@ require("mason").setup({
 })
 require("mason-lspconfig").setup()
 -- require'plugins.cmp'
--- require'telescope'
 -- require'nvim-dap-ui'
 -- require'nvim-dap-virtual-text'
 -- require'null-ls'
