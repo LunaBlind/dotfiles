@@ -17,8 +17,8 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
-nnoremap <leader>cl :bprevious<CR>:bdelete #<CR>
-nnoremap <leader>de :bdelete %<CR>
+nnoremap <leader> cl :bprevious<CR>:bdelete #<CR>
+nnoremap <leader> de :bdelete %<CR>
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
@@ -113,7 +113,7 @@ set foldmethod=indent
 " set foldmethod=syntax
 set foldnestmax=6
 " set fillchars=fold:\
-" set updatetime=300
+set updatetime=300
 
 "this is from https://idie.ru/posts/vim-modern-cpp/
 
@@ -261,116 +261,30 @@ au FileType c,cpp vnoremap <buffer><leader>lf :JbzClangFormat<CR>
 " Matlab
 Plug 'MortenStabenau/matlab-vim'
 
+" LSP-Setup
+Plug 'neovim/nvim-lspconfig'
+
 " Autocompletion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-    " delays and poor user experience.
-    set updatetime=300
-
-    " " don't give |ins-completion-menu| messages.
-    " set shortmess+=c
-
-    " Always show the signcolumn, otherwise it would shift the text each time
-    " diagnostics appear/become resolved.
-    if has("nvim-0.5.0") || has("patch-8.1.1564")
-        " Recently vim can merge signcolumn and number column into one
-        set signcolumn=number
-    else
-        set signcolumn=yes
-    endif
-
-    " Give more space for displaying messages.
-    set cmdheight=3
-
-    " use <tab> for trigger completion and navigate to the next complete item
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
-
-    inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-    " Confirm completion with Enter. If nothing is selected use the first item.
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-
-    " Use K to show documentation in preview window
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-    function! s:show_documentation()
-        if (index(['vim','help'], &filetype) >= 0)
-            execute 'h '.expand('<cword>')
-        else
-            call CocAction('doHover')
-        endif
-    endfunction
-
-" GoTo code navigation.
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
-
-    " " Symbol renaming.
-    " nmap <leader>rn <Plug>(coc-rename)
-
-    " " Formatting selected code.
-    " xmap <leader>f  <Plug>(coc-format-selected)
-    " nmap <leader>f  <Plug>(coc-format-selected)
-
-    " " Apply AutoFix to problem on the current line.
-    " nmap <leader>qf  <Plug>(coc-fix-current)
-
-    " Remap <C-f> and <C-b> for scroll float windows/popups.
-    if has('nvim-0.4.0') || has('patch-8.2.0750')
-      nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-      nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-      inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-      inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-      vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-      vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-    endif
-
-    " Map function and class text objects
-    " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-    xmap if <Plug>(coc-funcobj-i)
-    omap if <Plug>(coc-funcobj-i)
-    xmap af <Plug>(coc-funcobj-a)
-    omap af <Plug>(coc-funcobj-a)
-    xmap ic <Plug>(coc-classobj-i)
-    omap ic <Plug>(coc-classobj-i)
-    xmap ac <Plug>(coc-classobj-a)
-    omap ac <Plug>(coc-classobj-a)
-
-
-" Coc-Snippets
-    " Use <C-l> for trigger snippet expand.
-    imap <c-l> <Plug>(coc-snippets-expand)
-
-    " Use <C-j> for select text for visual placeholder of snippet.
-    vmap <c-j> <Plug>(coc-snippets-select)
-
-    " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-    let g:coc_snippet_next = '<c-j>'
-
-    " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-    let g:coc_snippet_prev = '<c-k>'
-
-    " Use <C-j> for both expand and jump (make expand higher priority.)
-    imap <c-j> <Plug>(coc-snippets-expand-jump)
-
-    " Use <leader>x for convert visual selected code to snippet
-    xmap <leader>x  <Plug>(coc-convert-snippet)
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/lspkind-nvim'
+" Plug 'hrsh7th/cmp-cmdline'
 "
-"
-" experimental
-    Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
+" Mason
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+" For luasnip users.
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
-" Plug 'davidhalter/jedi-vim'
-"
+" Telescope
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-lua/plenary.nvim'
 call plug#end()
 
 filetype plugin on
@@ -415,6 +329,33 @@ augroup END
 filetype indent on
 au BufRead,BufNewFile *.ml,*.mli compiler ocaml
 
+lua <<EOF
+-- Don't show the dumb matching stuff.
+vim.opt.shortmess:append "c"
+vim.opt.completeopt={"menu", "menuone", "noselect"}
+vim.g.snippets = "luasnip"
+require'lsp_setup'
+require'plugins.nvim-treesitter.config'
+-- require'plugins.lspconfig'
+require'plugins.luasnip'
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+require("mason-lspconfig").setup()
+-- require'plugins.cmp'
+-- require'telescope'
+-- require'nvim-dap-ui'
+-- require'nvim-dap-virtual-text'
+-- require'null-ls'
+require'plugins.nvim_cmp'
+EOF
+
 " let g:python3_host_prog = '/usr/lib/python3.9'
 "lua require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 " local dap = require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
@@ -458,6 +399,3 @@ au BufRead,BufNewFile *.ml,*.mli compiler ocaml
 "   },
 " }
 " EOF
-lua <<EOF
-require'nvim-treesitter.config'
-EOF
