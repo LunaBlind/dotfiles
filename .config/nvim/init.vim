@@ -285,6 +285,10 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-lua/plenary.nvim'
+
+" null-ls
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
 call plug#end()
 
 filetype plugin on
@@ -335,7 +339,7 @@ vim.opt.shortmess:append "c"
 vim.opt.completeopt={"menu", "menuone", "noselect"}
 vim.g.snippets = "luasnip"
 require'plugins.telescope'
-require'lsp_setup'
+require'plugins.lspconfig'
 require'plugins.nvim-treesitter.config'
 -- require'plugins.lspconfig'
 require'plugins.luasnip'
@@ -352,7 +356,7 @@ require("mason-lspconfig").setup()
 -- require'plugins.cmp'
 -- require'nvim-dap-ui'
 -- require'nvim-dap-virtual-text'
--- require'null-ls'
+-- require'plugins.null-ls'
 require'plugins.nvim_cmp'
 EOF
 
