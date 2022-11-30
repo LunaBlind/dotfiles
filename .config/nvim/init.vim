@@ -17,8 +17,8 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
-nnoremap <leader> cl :bprevious<CR>:bdelete #<CR>
-nnoremap <leader> de :bdelete %<CR>
+nnoremap <leader>cl :bprevious<CR>:bdelete #<CR>
+nnoremap <leader>de :bdelete %<CR>
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
@@ -155,8 +155,8 @@ tnoremap <Esc> <C-\><C-n>
 " set &packpath = &runtimepath
 " source stdpath('config') . '/init.vim'
 
-call plug#begin(stdpath('data') . '/plugged')
-" call plug#begin('~/.config/nvim/plugged')
+" call plug#begin(stdpath('data') . '/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/vim-plug'
 Plug 'morhetz/gruvbox'
 Plug 'raimondi/delimitmate'
@@ -227,9 +227,6 @@ Plug 'honza/vim-snippets'
 " Python
 Plug 'mwouts/jupytext', {'branch': 'main'}
 
-" Debugging
-Plug 'mfussenegger/nvim-dap'
-Plug 'mfussenegger/nvim-dap-python'
 
 " C++
 " most of this came from https://idie.ru/posts/vim-modern-cpp/
@@ -248,15 +245,15 @@ Plug 'derekwyatt/vim-fswitch'
 
 Plug 'bfrg/vim-cpp-modern'
 
-function! s:JbzClangFormat(first, last)
-  let l:winview = winsaveview()
-  execute a:first . "," . a:last . "!clang-format"
-  call winrestview(l:winview)
-endfunction
-command! -range=% JbzClangFormat call <sid>JbzClangFormat (<line1>, <line2>)
+" function! s:JbzClangFormat(first, last)
+"   let l:winview = winsaveview()
+"   execute a:first . "," . a:last . "!clang-format"
+"   call winrestview(l:winview)
+" endfunction
+" command! -range=% JbzClangFormat call <sid>JbzClangFormat (<line1>, <line2>)
 
-au FileType c,cpp nnoremap <buffer><leader>lf :<C-u>JbzClangFormat<CR>
-au FileType c,cpp vnoremap <buffer><leader>lf :JbzClangFormat<CR>
+" au FileType c,cpp nnoremap <buffer><leader>lf :<C-u>JbzClangFormat<CR>
+" au FileType c,cpp vnoremap <buffer><leader>lf :JbzClangFormat<CR>
 
 " Matlab
 Plug 'MortenStabenau/matlab-vim'
@@ -285,6 +282,14 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-lua/plenary.nvim'
+
+" Debugging
+Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap-python'
+" Plug 'leoluz/nvim-dap-go'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'nvim-telescope/telescope-dap.nvim'
 
 " null-ls
 Plug 'jose-elias-alvarez/null-ls.nvim'
@@ -354,10 +359,12 @@ require("mason").setup({
 })
 require("mason-lspconfig").setup()
 -- require'plugins.cmp'
--- require'nvim-dap-ui'
--- require'nvim-dap-virtual-text'
+require'plugins.nvim-dap'
+-- require'plugins.nvim-dap-ui'
+require'plugins.nvim-dap-virtual-text'
 -- require'plugins.null-ls'
 require'plugins.nvim_cmp'
+require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 EOF
 
 " let g:python3_host_prog = '/usr/lib/python3.9'
@@ -366,7 +373,6 @@ EOF
 " require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 " lua dap = require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 "
-" require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 
 " lua << EOF
 " local dap = require('dap')

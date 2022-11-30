@@ -2,11 +2,11 @@ augroup python
   autocmd!
   " nnoremap <silent> <F12> <Esc>:YcmCompleter GoTo<cr>
   " nnoremap <silent> <F11> <Esc>:YcmCompleter GoToReferences<cr>
-  nnoremap <F5> <Esc>:w<cr> :! clear && python %<cr>
-  nnoremap <F6> <Esc>:w<cr> :! clear && mypy %<cr>
+  " nnoremap <F5> <Esc>:w<cr> :! clear && python %<cr>
+  " nnoremap <F6> <Esc>:w<cr> :! clear && mypy %<cr>
   " nnoremap <F7> <Esc>:w<cr> :! cd ~/dev/Z-Server/zserver && clear && ls && python manage.py test<cr>
   " nnoremap <F7> <Esc>:w<cr> :! cd . && clear && ls && python manage.py test<cr>
-  nnoremap <F7> <Esc>:w<cr> :! clear && ls && python manage.py test <cr>
+  " nnoremap <F7> <Esc>:w<cr> :! clear && ls && python manage.py test <cr>
   " nnoremap <F6> <Esc>:w<cr> :! clear && mypy --ignore-missing-imports % && python % && ~/.scripts/script_done.sh %<cr>
   setlocal tabstop=4
   setlocal softtabstop=4
