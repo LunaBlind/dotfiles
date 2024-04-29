@@ -1,7 +1,5 @@
 require("luasnip.loaders.from_snipmate").load()
-require('luasnip.loaders.from_vscode').lazy_load()
-require("luasnip.init")
-local ls = require "luasnip"
+require("plugins.luasnip.init")
 
 -- hint node-type with virtual text
 vim.cmd([[
@@ -9,45 +7,21 @@ highlight LuaSnipInsert ctermfg=2
 highlight LuaSnipChoice ctermfg=3
 ]])
 local types = require("luasnip.util.types")
-ls.config.setup({
-    history = true,
-
-    -- This one is cool cause if you have dynamic snippets, it updates as you type
-    updateevents = "Textchanged, TextchangedI",
-
-    enable_autosnippets = true,
-
-    ext_opts = {
-        [types.insertNode] = {
-            active = {
-                virt_text = { { "●", "LuaSnipInsert" } },
-            },
-        },
-        [types.choiceNode] = {
-            active = {
-                virt_text = { { "●", "LuaSnipChoice" } },
-            },
-        },
-    },
+require("luasnip").config.setup({
+	ext_opts = {
+		[types.insertNode] = {
+			active = {
+				virt_text = { { "●", "LuaSnipInsert" } },
+			},
+		},
+		[types.choiceNode] = {
+			active = {
+				virt_text = { { "●", "LuaSnipChoice" } },
+			},
+		},
+	},
 })
 
--- vim.keymap.set({ "i", "s" }, "<c-k>", function()
---     if ls.expand_or_jumpable() then
---         ls.expand_or_jump()
---     end
--- end, { silent = true })
-
--- vim.keymap.set({ "i", "s" }, "<c-j>", function()
---     if ls.jumpable(-1) then
---         ls.jump(-1)
---     end
--- end, { silent = true })
-
--- vim.keymap.set({ "i" }, "<c-l>", function()
---     if ls.choice_active() then
---         ls.change_choice()
---     end
--- end, { silent = true })
 -- choice node pop-up --
 -- https://github.com/L3MON4D3/LuaSnip/wiki/Misc#choicenode-popup
 

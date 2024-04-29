@@ -6,12 +6,12 @@ alias lsl='ls -lash --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --c
 alias cp='cp -i'
 alias df='df -h'
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+# alias fgrep='fgrep --color=auto'
+alias egrep='grep -E --color=auto'
 
 alias feh='feh --start-at'
 
-#git
+# git
 # alias gs='git status '
 alias ga='git add '
 alias gb='git branch '
@@ -23,6 +23,9 @@ alias gx='gitx --all'
 
 alias mount='udisksctl mount -b'
 alias umount='udisksctl unmount -b'
+
+# work
+alias work='cd ~/ardrone_ws/src/ardrone_practicals'
 
 # cpupower
 alias powersave='sudo cpupower frequency-set -g powersave &&
@@ -45,7 +48,7 @@ alias imperator='steam -applaunch 859580'
 
 # headset
 alias headset='bluetoothctl power on &&
-				bluetoothctl connect 60:AB:D2:3D:2A:51'
+                bluetoothctl connect 60:AB:D2:3D:2A:51'
 
 # misc
 alias shutdown='bluetoothctl power off && shutdown now'

@@ -26,11 +26,14 @@ mkcd() {
     [[ $TMUX ]] && tmux rename-window "#{b:pane_current_path}"
 }
 
+# display
+# alias sd = 'sh .scripts/screens.sh'
 alias b='echo -e "enter brightness:\n"; read val; xrandr  --output eDP-1 --brightness "${val}"'
 alias bm='echo -e "enter brightness:\n"; read val; xrandr  --output HDMI-1 --brightness "${val}"'
 
 # git
-# alias gs='git status '
+alias gis='git status '
+alias gip='git stash && git pull && git stash pop '
 alias ga='git add '
 alias gb='git branch '
 alias gc='git commit'
@@ -43,7 +46,12 @@ alias mount='udisksctl mount -b'
 alias umount='udisksctl unmount -b'
 
 # work
-alias work='cd ~/ardrone_ws/src/ardrone_practicals'
+# alias work='cd ~/ardrone_ws/src/ardrone_practicals && nvim -S Session.vim'
+alias vimrc='cd ~/.dotfiles/.config/nvim/ && nvim -S Session.vim'
+
+alias fix='dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY &'
+alias vpn='protonvpn-cli ks --permanent && protonvpn-cli c --cc fr'
+alias novpn='protonvpn-cli ks --off && protonvpn-cli d'
 
 # cpupower
 alias powersave='sudo cpupower frequency-set -g powersave &&
@@ -63,6 +71,7 @@ alias eu4='steam -applaunch 236850'
 alias stellaris='steam -applaunch 281990'
 alias hoi='steam -applaunch 394360'
 alias imperator='steam -applaunch 859580'
+alias dfsteam='steam -applaunch 975370'
 
 # headset
 alias headset='bluetoothctl power on &&
@@ -72,3 +81,6 @@ alias headset='bluetoothctl power on &&
 alias shutdown='bluetoothctl power off && shutdown now'
 
 alias vlime='sbcl --load ~/.local/share/nvim/plugged/vlime/lisp/start-vlime.lisp'
+
+# ROS
+alias build_underlay=\"env -i HOME=\$HOME USER=\$USER TERM=xterm-256color zsh -l -c 'source /opt/ros/iron/setup.zsh && cd \$HOME/fav/ros2_underlay && colcon build'\"

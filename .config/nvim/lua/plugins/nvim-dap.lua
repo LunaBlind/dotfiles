@@ -29,6 +29,11 @@ dap.configurations.cpp = {
         stopOnEntry = false,
         args = {},
 
+        -- First try to attach to catkin_make
+        -- request = 'attach',
+        -- program = function()
+        --     return vim.cmd('make')
+
         -- 💀
         -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
         --
@@ -84,12 +89,12 @@ local dapui = require("dapui")
 -- require("dapui").close()
 -- require("dapui").toggle()
 
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-end
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+--     dapui.open()
+-- end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+--     dapui.close()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+--     dapui.close()
+-- end

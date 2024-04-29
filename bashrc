@@ -21,6 +21,11 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
 source /usr/bin/virtualenvwrapper.sh
 
+# export TERM=xterm-256color
+source /opt/ros/noetic/setup.bash
+
+source ~/ardrone_ws/devel/setup.bash
+
 set -o vi
 
 /usr/bin/setxkbmap -option "caps:escape"

@@ -44,10 +44,10 @@ vnoremap > >gv
 :command! E e
 
 " Tabs managemenent
-nnoremap <A-H> :-tabmove<CR>
-inoremap <A-H> <C-O>:-tabmove<CR>
-nnoremap <A-L> :+tabmove<CR>
-inoremap <A-L> <C-O>:+tabmove<CR>
+nnoremap <A-j> :-tabmove<CR>
+inoremap <A-j> <C-O>:-tabmove<CR>
+nnoremap <A-k> :+tabmove<CR>
+inoremap <A-k> <C-O>:+tabmove<CR>
 nnoremap <A-t> :tabnew<CR>
 inoremap <A-t> <C-O>:tabnew<CR>
 nnoremap <A-l> :tabnext<CR>
@@ -107,9 +107,17 @@ set smarttab
 set autoindent
 set noswapfile
 set number
+
+set textwidth=0
+set wrapmargin=0
+set wrap
+set linebreak 
+
 set encoding=utf-8
 set foldenable
-set foldmethod=indent
+" set foldmethod=indent
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 " set foldmethod=syntax
 set foldnestmax=6
 " set fillchars=fold:\
@@ -167,7 +175,7 @@ Plug 'tpope/vim-obsession'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'luochen1990/rainbow'
     let g:rainbow_active = 1
 
@@ -260,6 +268,8 @@ Plug 'MortenStabenau/matlab-vim'
 
 " LSP-Setup
 Plug 'neovim/nvim-lspconfig'
+Plug 'Issafalcon/lsp-overloads.nvim'
+" Plug 'ray-x/lsp_signature.nvim'
 
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
@@ -267,7 +277,8 @@ Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/lspkind-nvim'
+Plug 'onsails/lspkind.nvim'
+" Plug 'hrsh7th/lspkind-nvim'
 " Plug 'hrsh7th/cmp-cmdline'
 "
 " Mason
@@ -275,13 +286,20 @@ Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 
 " For luasnip users.
-Plug 'L3MON4D3/LuaSnip'
+" Plug 'L3MON4D3/LuaSnip'
+" " follow latest release and install jsregexp.
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'rafamadriz/friendly-snippets'
 
 " Telescope
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'benfowler/telescope-luasnip.nvim'
+Plug 'LinArcX/telescope-env.nvim'
+Plug 'nvim-telescope/telescope-ui-select.nvim'
 
 " Debugging
 Plug 'mfussenegger/nvim-dap'
@@ -290,6 +308,8 @@ Plug 'mfussenegger/nvim-dap-python'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'nvim-telescope/telescope-dap.nvim'
+
+" Plug 'Shatur/neovim-tasks'
 
 " null-ls
 Plug 'jose-elias-alvarez/null-ls.nvim'
@@ -300,9 +320,9 @@ Plug 'lewis6991/gitsigns.nvim'
 " ROS
 " Plug 'thibthib18/ros-nvim'
 
-Plug 'taketwo/vim-ros'
-let g:ros_make="all" "just deleted the ros_make line in __init__.py of the plugin
-let g:ros_catkin_make_options='run_tests -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Release'
+" Plug 'taketwo/vim-ros'
+" let g:ros_make="all" "just deleted the ros_make line in __init__.py of the plugin
+" let g:ros_catkin_make_options='run_tests -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Release'
 
 call plug#end()
 
@@ -376,7 +396,7 @@ require'plugins.nvim-dap-virtual-text'
 require'plugins.nvim_cmp'
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 require'plugins.gitsigns'
+-- require'plugins.ros-nvim'
 
 require'mappings.leader'
--- require'plugins.ros-nvim'
 EOF

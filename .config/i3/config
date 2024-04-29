@@ -22,20 +22,21 @@ font pango:inconsolata bold 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+t exec lxterminal
+bindsym $mod+t exec alacritty
 
 # kill focused window
-bindsym $mod+q kill
+bindsym $mod+Shift+q kill
 # bindsym $mod+F4 kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec "dmenu_run -sb '#007aac'"
-bindsym $mod+d exec "dmenu_run -fn 'Inconsolata 10'"
+# bindsym $mod+d exec "dmenu_run -fn 'Inconsolata 10'"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id "i3-dmenu-desktop --dmenu='-fn 'Inconsolata 10''"
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop 
 
 # change focus
 bindsym $mod+h focus left
@@ -101,8 +102,8 @@ set $ws9 "9"
 set $ws10 "10"
 
 # assign but the last workspace to the external screen
-set $extern HDMI-1
-set $intern eDP-1
+set $extern HDMI1
+set $intern eDP1
 # set $intern LVDS1
 workspace 1 output $extern
 workspace 2 output $extern
@@ -154,10 +155,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym odiaeresis resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -195,7 +196,7 @@ workspace_auto_back_and_forth yes
 # borders
 # default_border none
 # default_border normal
-default_border pixel 5
+default_border pixel 1
 hide_edge_borders smart
 # new_float normal 1
 # default_floating_border pixel 1
@@ -203,7 +204,8 @@ default_floating_border normal
 
 # set $blue = #007aac
 # set $green = #526f33
-set $green = #005f00
+# set $green = #005f00
+set $pink = #8e0058
 # set $orange = #8b3e2f
 set $red = #2f343a
 
@@ -214,9 +216,9 @@ bar {
         colors {
                 background #000000
                 statusline #ffffff
-                separator $green
+                separator $pink
 
-                focused_workspace  #4c7899 #005f00 #ffffff
+                focused_workspace  #4c7899 #8e0058 #ffffff
                 active_workspace   #333333 #5f676a #ffffff
                 inactive_workspace #333333 #222222 #888888
                 urgent_workspace   $red #900000 #ffffff
@@ -264,6 +266,8 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 
 # Autostart
+# exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY &
+# exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 exec --no-startup-id ~/.scripts/screens.sh
 # exec --no-startup-id feh --bg-fill --randomize ~/.wallpaper/*
 # exec nitrogen --restore 
@@ -276,5 +280,8 @@ exec --no-startup-id redshift
 exec --no-startup-id xmodmap ~/.Xmodmap
 # exec --no-startup-id headset
 exec --no-startup-id nm-applet
+exec --no-startup-id steam 
+# exec --no-startup-id iptables -F
+# exec --no-startup-id blueman-applet
 
 # vim:foldmethod=marker:foldlevel=0:tw=120:

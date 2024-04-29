@@ -35,6 +35,10 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+xset s off
+xset -dpms
+xset s noblank
+
 # exec xrandr --output HDMI1 --auto --left-of eDP1 &
 # exec xrandr --output HDMI1 --auto  &
 # exec xrandr --output HDMI1 --primary &

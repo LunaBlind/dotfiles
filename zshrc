@@ -6,7 +6,8 @@
 ZSH=/usr/share/oh-my-zsh/
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="gruvbox"
+SOLARIZED_THEME="dark"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -44,7 +45,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=~/.zsh/
 
-plugins=(git auto-notify zsh-autosuggestions shrink-path)
+# plugins=(git auto-notify zsh-autosuggestions shrink-path)
+plugins=(git auto-notify zsh-autosuggestions)
 
 # User configuration
 
@@ -84,9 +86,14 @@ export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
 export PATH=$PATH:/home/nika/.local/bin
+export PATH=$PATH:/usr/local/bin/
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
 source /usr/bin/virtualenvwrapper.sh
+
+export ROS_DOMAIN_ID=42
+source /opt/ros/iron/setup.zsh
+
 
 # {{{ alias setup
 if [ -f ~/.zsh/zshalias ]; then
@@ -97,14 +104,25 @@ fi
 # }}}
 
 # export TERM=xterm-256color
-source /opt/ros/noetic/setup.zsh
-source ~/ardrone_ws/devel/setup.zsh
+# source /opt/ros/noetic/setup.zsh
+# source ~/ardrone_ws/devel/setup.zsh
 
 /usr/bin/setxkbmap -option "caps:escape"
 
 bindkey -v
 # Enable bash like history search
 bindkey '^R' history-incremental-search-backward
+
+# Ctrl-w - delete a full WORD (including colon, dot, comma, quotes...)
+my-backward-kill-word () {
+    # Add colon, comma, single/double quotes to word chars
+    # local WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>:,"'"'"
+    local WORDCHARS=${WORDCHARS/\//}
+    zle -f kill # Append to the kill ring on subsequent kills.
+    zle backward-kill-word
+}
+zle -N my-backward-kill-word
+bindkey '^w' my-backward-kill-word
 
 export KEYTIMEOUT=1
 
@@ -152,7 +170,7 @@ export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export SAVEHIST=1000000
 setopt incappendhistory
-setopt sharehistory
+# setopt sharehistory
 # Write to the history file immediately, not when the shell exits.
 setopt INC_APPEND_HISTORY
 # Don't record an entry that was just recorded again.
@@ -170,9 +188,9 @@ alias history='history -i'
 export AUTO_NOTIFY_THRESHOLD=600
 export AUTO_NOTIFY_TITLE="%command: done with %exit_code"
 export AUTO_NOTIFY_BODY="Elapsed time: %elapsed seconds"
-export AUTO_NOTIFY_WHITELIST=("apt-get" "docker" "rsync" "scp" "cp" "mv" "rm" "git"
-                              "cmake" "ocamlbuild" "make" "ninja" "dune"
-                              "cabal"
+export AUTO_NOTIFY_WHITELIST=("pacman" "docker" "rsync" "scp" "cp" "mv" "rm" "git"
+                              "cmake" "catkin_make" "make" "ninja" "dune"
+                              "cabal" "yay"
                               "borg-linux64" "aria2" "frama-c"
                               "chk1" "cppcheck" "perf" "mprof" "svn" "opam" "sync-ebook.sh")
 export AUTO_NOTIFY_IGNORE=("docker exec" "docker-compose")

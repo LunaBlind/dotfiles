@@ -4,7 +4,7 @@ augroup python
   " nnoremap <silent> <F11> <Esc>:YcmCompleter GoToReferences<cr>
 	nnoremap <buffer> <leader>r :w<cr> :! clear; python %<cr>
   " nnoremap <leader>r :w<cr> :! python %<cr>
-  " nnoremap <F5> <Esc>:w<cr> :! clear && python %<cr>
+  nnoremap <F5> <Esc>:w<cr> :! clear && python %<cr>
 	" nnoremap <silent> <F6> :lua require'dap'.continue()<CR>
 	" nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
 	" nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
