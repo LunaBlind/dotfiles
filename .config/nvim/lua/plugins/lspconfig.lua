@@ -155,6 +155,9 @@ local default_config = {
 for _, lsp in ipairs(require("plugins.lsp").SERVERS) do
     local server_config = require("plugins.lsp." .. lsp) or {}
     local config = vim.tbl_extend("keep", server_config, default_config)
+    if lsp == "tsserver" then
+      lsp = "ts_ls"
+    end
     lspconfig[lsp].setup(config)
 end
 
