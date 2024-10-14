@@ -197,38 +197,38 @@ export AUTO_NOTIFY_IGNORE=("docker exec" "docker-compose")
 export AUTO_NOTIFY_EXPIRE_TIME=2000
 # }}}
 
-# {{{ Plugins
-if [[ ! -f ~/.zplug/init.zsh ]]; then
-	git clone https://github.com/b4b4r07/zplug ~/.zplug
-fi
+# # {{{ Plugins
+# if [[ ! -f ~/.zplug/init.zsh ]]; then
+# 	git clone https://github.com/b4b4r07/zplug ~/.zplug
+# fi
 
-if [[ -f ~/.zplug/init.zsh ]] ; then
-    source ~/.zplug/init.zsh
+# if [[ -f ~/.zplug/init.zsh ]] ; then
+#     source ~/.zplug/init.zsh
 
-    # Autosuggestions
-    zplug "tarruda/zsh-autosuggestions", use:"zsh-autosuggestions.zsh"
+#     # Autosuggestions
+#     zplug "tarruda/zsh-autosuggestions", use:"zsh-autosuggestions.zsh"
 
-    # Syntax highlighting
-    zplug "zdharma/fast-syntax-highlighting", defer:3
+#     # Syntax highlighting
+#     zplug "zdharma/fast-syntax-highlighting", defer:3
 
-    # Color parens and highlight matching paren
-    export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+#     # Color parens and highlight matching paren
+#     export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-    # A plugin to shrink directory paths for brevity and pretty-printing
-    zplug "plugins/shrink-path", from:oh-my-zsh
+#     # A plugin to shrink directory paths for brevity and pretty-printing
+#     zplug "plugins/shrink-path", from:oh-my-zsh
 
-    # Automatically sends out a notification when a long running task has completed
-	zplug "MichaelAquilina/zsh-auto-notify", defer:2
+#     # Automatically sends out a notification when a long running task has completed
+# 	zplug "MichaelAquilina/zsh-auto-notify", defer:2
 
-    # Install plugins if not all are installed
-    if ! zplug check; then
-        zplug install
-    fi
+#     # Install plugins if not all are installed
+#     if ! zplug check; then
+#         zplug install
+#     fi
 
-    # Source plugins and add commands to $PATH
-    zplug load
-fi
-# }}}
+#     # Source plugins and add commands to $PATH
+#     zplug load
+# fi
+# # }}}
 
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
