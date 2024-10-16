@@ -1,4 +1,4 @@
-
+autoload -U promptinit; promptinit 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -236,9 +236,9 @@ zstyle :compinstall filename '/home/nika/.zshrc'
 
 zstyle ':completion:*' menu select
 
-autoload -Uz compinit promptinit
-compinit
-promptinit
+# autoload -Uz compinit promptinit
+# compinit
+# promptinit
 # End of lines added by compinstall
 
 # # {{{ Show current directory in the X window title
