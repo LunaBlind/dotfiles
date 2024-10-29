@@ -3,7 +3,8 @@ autoload -U promptinit; promptinit
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-ZSH=/usr/share/oh-my-zsh/
+# ZSH=~/.oh-my-zsh/
+export ZSH="$HOME/.oh-my-zsh"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="gruvbox"
@@ -46,7 +47,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_CUSTOM=~/.zsh/
 
 # plugins=(git auto-notify zsh-autosuggestions shrink-path)
-plugins=(git auto-notify zsh-autosuggestions)
+plugins=(git auto-notify zsh-autosuggestions zsh-syntax-highlighting)
+# plugins=(git auto-notify )
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # User configuration
 
@@ -59,7 +63,6 @@ plugins=(git auto-notify zsh-autosuggestions)
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
 # fi
 
 # Compilation flags
@@ -85,14 +88,22 @@ export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
-export PATH=$PATH:/home/nika/.local/bin
+export PATH=$PATH:~/.local/bin
 export PATH=$PATH:/usr/local/bin/
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
-source /usr/bin/virtualenvwrapper.sh
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+# source /usr/bin/virtualenvwrapper.sh
 
 export ROS_DOMAIN_ID=42
+# source /opt/ros/iron/setup.zsh
 source /opt/ros/iron/setup.zsh
+# source "$HOME/fav/ros2/install/local_setup.zsh"
+source ~/fav/ros2/install/setup.zsh
+source ~/fav/ros2_underlay/install/setup.zsh
+#
+# argcomplete for ros2 & colcon
+eval "$(register-python-argcomplete3 ros2)"
+eval "$(register-python-argcomplete3 colcon)"
 
 
 # {{{ alias setup
@@ -128,6 +139,9 @@ export KEYTIMEOUT=1
 
 # Not sure if necessary anymore
 set -o vi
+
+# source /usr/share/fzf/completion.zsh
+# source /usr/share/fzf/key-bindings.zsh
 
 # if tmux is executable, X is running, and not inside a tmux session, then try to attach.
 # if attachment fails, start a new session
@@ -190,7 +204,7 @@ export AUTO_NOTIFY_TITLE="%command: done with %exit_code"
 export AUTO_NOTIFY_BODY="Elapsed time: %elapsed seconds"
 export AUTO_NOTIFY_WHITELIST=("pacman" "docker" "rsync" "scp" "cp" "mv" "rm" "git"
                               "cmake" "catkin_make" "make" "ninja" "dune"
-                              "cabal" "yay"
+                              "cabal" "yay" "apt"
                               "borg-linux64" "aria2" "frama-c"
                               "chk1" "cppcheck" "perf" "mprof" "svn" "opam" "sync-ebook.sh")
 export AUTO_NOTIFY_IGNORE=("docker exec" "docker-compose")
@@ -228,11 +242,10 @@ export AUTO_NOTIFY_EXPIRE_TIME=2000
 #     # Source plugins and add commands to $PATH
 #     zplug load
 # fi
-# # }}}
 
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/nika/.zshrc'
+zstyle :compinstall filename '~/.zshrc'
 
 zstyle ':completion:*' menu select
 
@@ -252,5 +265,11 @@ zstyle ':completion:*' menu select
 # autoload -Uz add-zsh-hook
 # add-zsh-hook precmd set-title-precmd
 # add-zsh-hook preexec set-title-preexec
+#
+# source ~/pdfjam-completion.zsh
+# # Enable argcomplete for specific commands
+# eval "$(register-python-argcomplete pip)"
+# eval "$(register-python-argcomplete pacman)"
+# eval "$(register-python-argcomplete zathura)"
 # # }}}
 # vim:foldmethod=marker:foldenable:foldlevel=0:sw=4:tw=120

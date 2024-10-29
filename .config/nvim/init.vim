@@ -196,7 +196,7 @@ Plug 'itchyny/lightline.vim'
     let g:buftabline_indicators=1 " show modified
 
     let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'darcula',
       \ 'active': {
       \   'left':  [ [ 'mode', 'paste' ],
       \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
@@ -226,6 +226,28 @@ Plug 'lervag/vimtex'
     let g:vimtex_quickfix_mode=0
     set conceallevel=1
     let g:tex_conceal='abdmg'
+    " let g:vimtex_compiler_latexmk = {
+    "   \ 'build_dir' : '',
+    "   \ 'callback' : 1,
+    "   \ 'continuous' : 1,
+    "   \ 'options' : [
+    "   \   '-pdf',
+    "   \   '-interaction=nonstopmode',
+    "   \   '-synctex=1',
+    "   \ ],
+    "   \}
+
+    " Define a custom callback to clean auxiliary files after compilation
+    function! CleanAuxiliaryFiles()
+      silent !latexmk -c
+      silent !rm *.aux *.fls *.log *.fdb_latexmk *.synctex.gz *.toc *.out *.bbl *.blg
+    endfunction
+
+    augroup vimtex_clean
+      autocmd!
+      autocmd User VimtexEventCompileSuccess call CleanAuxiliaryFiles()
+    augroup END
+
 Plug 'honza/vim-snippets'
 " Plug 'sirver/ultisnips'
 "   let g:UltiSnipsExpandTrigger="<A-i>"
@@ -303,9 +325,9 @@ Plug 'nvim-telescope/telescope-ui-select.nvim'
 
 " Debugging
 Plug 'mfussenegger/nvim-dap'
-Plug 'mfussenegger/nvim-dap-python'
+" Plug 'mfussenegger/nvim-dap-python'
 " Plug 'leoluz/nvim-dap-go'
-Plug 'rcarriga/nvim-dap-ui'
+" Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'nvim-telescope/telescope-dap.nvim'
 
@@ -389,12 +411,12 @@ require("mason").setup({
 })
 require("mason-lspconfig").setup()
 -- require'plugins.cmp'
-require'plugins.nvim-dap'
+-- require'plugins.nvim-dap'
 -- require'plugins.nvim-dap-ui'
-require'plugins.nvim-dap-virtual-text'
+-- require'plugins.nvim-dap-virtual-text'
 -- require'plugins.null-ls'
 require'plugins.nvim_cmp'
-require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+-- require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 require'plugins.gitsigns'
 -- require'plugins.ros-nvim'
 

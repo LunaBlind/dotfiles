@@ -4,7 +4,7 @@ local M = {}
 M.SERVERS = {
     'pyright',       -- python
     -- 'jedi_language_server', -- python
-    'tsserver',      -- typescript/javascript
+    'ts_ls',      -- typescript/javascript
     'lua_ls',        -- lua
     'rust_analyzer', -- rust
     'texlab',        -- latex

@@ -59,5 +59,10 @@ xset s noblank
 # exec ~/scripts/wallpaper.sh &
 # exec nm-applet &
 # exec signal-desktop —start-in-tray —use-tray-icon &
+# In your .xinitrc or similar initialization file
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+export SSH_AUTH_SOCK
+
+
 exec i3
 

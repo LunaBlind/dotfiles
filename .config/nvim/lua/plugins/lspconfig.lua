@@ -90,7 +90,7 @@ local on_attach = function(client, bufnr)
 				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
 				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 			augroup END
-		]]     )
+		]])
     end
 
     --- Guard against servers without the signatureHelper capability
@@ -99,18 +99,18 @@ local on_attach = function(client, bufnr)
             -- UI options are mostly the same as those passed to vim.lsp.util.open_floating_preview
             ui = {
                 border = "single", -- The border to use for the signature popup window. Accepts same border values as |nvim_open_win()|.
-                height = nil, -- Height of the signature popup window (nil allows dynamic sizing based on content of the help)
-                width = nil, -- Width of the signature popup window (nil allows dynamic sizing based on content of the help)
-                wrap = true, -- Wrap long lines
-                wrap_at = nil, -- Character to wrap at for computing height when wrap enabled
-                max_width = nil, -- Maximum signature popup width
-                max_height = nil, -- Maximum signature popup height
+                height = nil,      -- Height of the signature popup window (nil allows dynamic sizing based on content of the help)
+                width = nil,       -- Width of the signature popup window (nil allows dynamic sizing based on content of the help)
+                wrap = true,       -- Wrap long lines
+                wrap_at = nil,     -- Character to wrap at for computing height when wrap enabled
+                max_width = nil,   -- Maximum signature popup width
+                max_height = nil,  -- Maximum signature popup height
                 -- Events that will close the signature popup window: use {"CursorMoved", "CursorMovedI", "InsertCharPre"} to hide the window when typing
                 close_events = { "CursorMoved", "BufHidden", "InsertLeave" },
                 focusable = true, -- Make the popup float focusable
-                focus = false, -- If focusable is also true, and this is set to true, navigating through overloads will focus into the popup window (probably not what you want)
-                offset_x = 0, -- Horizontal offset of the floating window relative to the cursor position
-                offset_y = 0 -- Vertical offset of the floating window relative to the cursor position
+                focus = false,    -- If focusable is also true, and this is set to true, navigating through overloads will focus into the popup window (probably not what you want)
+                offset_x = 0,     -- Horizontal offset of the floating window relative to the cursor position
+                offset_y = 0      -- Vertical offset of the floating window relative to the cursor position
             },
             keymaps = {
                 next_signature = "<C-j>",
@@ -143,7 +143,6 @@ local on_attach = function(client, bufnr)
             prefix = '',
         },
     })
-
 end
 
 local default_config = {
