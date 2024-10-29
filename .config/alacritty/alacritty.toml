@@ -1,14 +1,30 @@
-import = ["/home/luna/.config/alacritty/colors.toml"]
+general.import = ["~/.config/alacritty/colors.toml"]
 
 [env]
 WINIT_X11_SCALE_FACTOR = "1.0"
 
 [font]
-size = 12
+size = 14
 
 [font.offset]
 x = -1
 y = 0
+
+[font.bold]
+family = "Inconsolata"
+style = "Bold"
+
+[font.bold_italic]
+family = "Inconsolata"
+style = "Bold Italic"
+
+[font.italic]
+family = "Inconsolata"
+style = "Italic"
+
+[font.normal]
+family = "Inconsolata"
+style = "Bold"
 
 [hints]
 alphabet = "aoeuidhtns',.pgcrl"
