@@ -46,7 +46,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_CUSTOM=~/.zsh/
 
 # plugins=(git auto-notify zsh-autosuggestions shrink-path)
-plugins=(git auto-notify zsh-autosuggestions)
+plugins=(git auto-notify zsh-autosuggestions zsh-syntax-highlighting)
+# plugins=(git auto-notify )
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # User configuration
 
@@ -85,14 +88,14 @@ export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
-export PATH=$PATH:/home/nika/.local/bin
+export PATH=$PATH:~/.local/bin
 export PATH=$PATH:/usr/local/bin/
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
-source /usr/bin/virtualenvwrapper.sh
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+# source /usr/bin/virtualenvwrapper.sh
 
 export ROS_DOMAIN_ID=42
-source /opt/ros/iron/setup.zsh
+# source /opt/ros/iron/setup.zsh
 
 
 # {{{ alias setup
@@ -128,6 +131,9 @@ export KEYTIMEOUT=1
 
 # Not sure if necessary anymore
 set -o vi
+
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
 
 # if tmux is executable, X is running, and not inside a tmux session, then try to attach.
 # if attachment fails, start a new session
@@ -228,11 +234,10 @@ export AUTO_NOTIFY_EXPIRE_TIME=2000
 #     # Source plugins and add commands to $PATH
 #     zplug load
 # fi
-# # }}}
 
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/nika/.zshrc'
+zstyle :compinstall filename '~/.zshrc'
 
 zstyle ':completion:*' menu select
 
@@ -252,5 +257,11 @@ promptinit
 # autoload -Uz add-zsh-hook
 # add-zsh-hook precmd set-title-precmd
 # add-zsh-hook preexec set-title-preexec
+#
+source ~/pdfjam-completion.zsh
+# # Enable argcomplete for specific commands
+# eval "$(register-python-argcomplete pip)"
+# eval "$(register-python-argcomplete pacman)"
+# eval "$(register-python-argcomplete zathura)"
 # # }}}
 # vim:foldmethod=marker:foldenable:foldlevel=0:sw=4:tw=120

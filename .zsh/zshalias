@@ -15,7 +15,9 @@ alias ls='ls --color=auto --human-readable --group-directories-first --classify'
 alias ll='ls --color=auto --human-readable --group-directories-first --classify -l'
 alias lla='ls --color=auto --human-readable --group-directories-first --classify -la'
 
-zt() { zathura $1 2>&1 >/dev/null & }
+zt() { zathura "$1" 2>&1 >/dev/null & }
+# # Register argcomplete for the alias
+# complete -o default -F _python_argcomplete zt
 
 # copy working directory to clipboard
 alias cpwd='pwd | tr -d "\n" | xsel -ib'
@@ -28,8 +30,8 @@ mkcd() {
 
 # display
 # alias sd = 'sh .scripts/screens.sh'
-alias b='echo -e "enter brightness:\n"; read val; xrandr  --output eDP-1 --brightness "${val}"'
-alias bm='echo -e "enter brightness:\n"; read val; xrandr  --output HDMI-1 --brightness "${val}"'
+alias b='echo -e "enter brightness:\n"; read val; xrandr  --output eDP1 --brightness "${val}"'
+alias bm='echo -e "enter brightness:\n"; read val; xrandr  --output HDMI1 --brightness "${val}"'
 
 # git
 alias gis='git status '
