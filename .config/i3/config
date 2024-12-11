@@ -207,12 +207,27 @@ default_floating_border normal
 # set $green = #526f33
 # set $green = #005f00
 set $pink = #8e0058
+set $dark_magenta = #8b008b
 # set $orange = #8b3e2f
 set $red = #2f343a
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #8b008b #8b008b #ffffff #2e9ef4   #285577
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+bindsym $mod+Shift+b bar mode toggle
 
 bar {
         status_command i3status --config ~/.config/i3/i3status.conf
         tray_output primary
+        mode hide
+        hidden_state hide
+        # modifier $mod
 
         colors {
                 background #000000
@@ -267,29 +282,12 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 
 # Autostart
-# exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY &
-# exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
-# exec gnome-keyring-daemon --start --components=secrets
-# exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg
-# exec --no-startup-id /usr/bin/dbus-update-activation-environment --systemd DISPLAY XAUTHORITY
-# exec --no-startup-id ~/.config/i3/gnome-keyring.sh
-
 exec --no-startup-id ~/.scripts/screens.sh
-# exec --no-startup-id feh --bg-fill --randomize ~/.wallpaper/*
-# exec nitrogen --restore 
 exec --no-startup-id ~/.scripts/wallpaper.sh
 exec --no-startup-id i3-battery-popup -N -n -L 15 
 exec --no-startup-id redshift 
-# exec --no-startup-id dunst
-# exec signal-desktop —start-in-tray —use-tray-icon &
-exec --no-startup-id blueman-applet
+# exec --no-startup-id blueman-applet
 exec --no-startup-id xmodmap ~/.Xmodmap
-# exec --no-startup-id headset
 exec --no-startup-id nm-applet
 exec --no-startup-id mullvad-vpn
-# exec --no-startup-id protonvpn-app
-# exec --no-startup-id steam 
-# exec --no-startup-id iptables -F
-# exec --no-startup-id blueman-applet
-
 # vim:foldmethod=marker:foldlevel=0:tw=120:
