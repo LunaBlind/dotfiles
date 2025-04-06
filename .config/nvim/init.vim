@@ -126,7 +126,7 @@ set updatetime=300
 "this is from https://idie.ru/posts/vim-modern-cpp/
 
 set undofile
-set undodir=$HOME/.vim/undo
+set undodir=$HOME/.local/share/nvim/undo
 set undolevels=1000
 set undoreload=10000
 
