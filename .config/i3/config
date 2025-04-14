@@ -26,18 +26,15 @@ bindsym $mod+t exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
-# bindsym $mod+F4 kill
 
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# bindsym $mod+d exec "dmenu_run -sb '#007aac'"
-# bindsym $mod+d exec "dmenu_run -fn 'Inconsolata 10'"
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id "i3-dmenu-desktop --dmenu='-fn 'Inconsolata 10''"
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop 
-bindsym $mod+d exec --no-startup-id dmenu_run
+# start rofi (program launcher)
+bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+c exec --no-startup-id rofi -show calc
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+bindsym Mod1+Tab exec --no-startup-id rofi -show window
+
+# clipboard history
+bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # change focus
 bindsym $mod+h focus left
@@ -62,12 +59,6 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
-bindsym $mod+b split h
-
-# split in vertical orientation
-bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -295,6 +286,8 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id xmodmap ~/.Xmodmap
 exec --no-startup-id nm-applet
 exec --no-startup-id mullvad-vpn
+# Clipboard management
+exec --no-startup-id greenclip daemon
 # screen doesn't dim and screensaver is disabled
 exec_always --no-startup-id xset s off
 exec_always --no-startup-id xset -dpms
