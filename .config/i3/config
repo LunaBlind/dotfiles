@@ -295,4 +295,7 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id xmodmap ~/.Xmodmap
 exec --no-startup-id nm-applet
 exec --no-startup-id mullvad-vpn
+# screen doesn't dim and screensaver is disabled
+exec_always --no-startup-id xset s off
+exec_always --no-startup-id xset -dpms
 # vim:foldmethod=marker:foldlevel=0:tw=120:
