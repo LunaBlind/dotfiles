@@ -95,53 +95,7 @@ if exists('$TMUX')
   nnoremap <silent> <leader><leader><tab> :silent !tmux clear-history -t right && tmux send-keys -t \! C-l Up Enter<cr>
 endif
 
-set smartcase
-set incsearch
-set hlsearch
-set shortmess+=c
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set smarttab
-set autoindent
-set noswapfile
-set number
-
-set textwidth=0
-set wrapmargin=0
-set wrap
-set linebreak 
-
-set encoding=utf-8
-set foldenable
-" set foldmethod=indent
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-" set foldmethod=syntax
-set foldnestmax=6
-" set fillchars=fold:\
-set updatetime=300
-
-"this is from https://idie.ru/posts/vim-modern-cpp/
-
-set undofile
-set undodir=$HOME/.local/share/nvim/undo
-set undolevels=1000
-set undoreload=10000
-
-" set showmatch                               " Show matching brackets when text indicator is over them
-set mat=1                                   " How many tenths of a second to blink when matching brackets
-set re=1                                    " Required for vista.vim: https://github.com/liuchengxu/vista.vim/issues/82
-" set clipboard=unnamedplus,unnamed
-" set signcolumn=yes
-set wildignore+=*.o                         " Compiled object files
-set wildignore+=*.pyc                       " Python bytecode
-set wildignore+=*.aux,*.out,*.toc           " LaTeX output
-set wildignore+=*.jpg,*.jpeg,*.gif,*.png    " Binary images
-set wildignore+=.hg,.git,.svn               " VCS
-set wildignore+=*~                          " Backup files
-set wildignore+=*.pdf                       " pdfs
+lua require('options')
 
 if exists('+colorcolumn')
   set colorcolumn=80
