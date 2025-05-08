@@ -116,11 +116,27 @@ cmp.setup({
 })
 
 -- search has buffer completion
-cmp.setup.cmdline("/", { sources = {
-    { name = "buffer" },
-} })
+-- `/` search in buffer
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' },
+    },
+})
 
-cmp.setup.cmdline(":", { sources = {
-    { name = "path" },
-    { name = "cmdline" },
-} })
+-- `:` command-line completion with path (no trailing slash) + cmdline
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        {
+            name = 'path',
+        },
+    }, {
+        {
+            name = 'cmdline',
+            option = {
+                ignore_cmds = { 'Man', '!' },
+            },
+        },
+    }),
+})

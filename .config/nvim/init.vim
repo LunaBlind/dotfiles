@@ -96,12 +96,11 @@ require("mason").setup({
     }
 })
 require("mason-lspconfig").setup()
--- require'plugins.cmp'
+require'plugins.cmp'
 -- require'plugins.nvim-dap'
 -- require'plugins.nvim-dap-ui'
 -- require'plugins.nvim-dap-virtual-text'
 -- require'plugins.null-ls'
-require'plugins.nvim_cmp'
 -- require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 require'plugins.gitsigns'
 -- require'plugins.ros-nvim'
