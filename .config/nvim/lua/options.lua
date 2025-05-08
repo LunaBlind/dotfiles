@@ -39,7 +39,7 @@ vim.opt.updatetime  = 300
 -- "this is from https://idie.ru/posts/vim-modern-cpp/
 
 vim.opt.undofile    = true
-vim.opt.undodir     = "$HOME/.local/share/nvim/undo"
+vim.opt.undodir     = "~/.local/share/nvim/undo"
 vim.opt.undolevels  = 1000
 vim.opt.undoreload  = 10000
 
